@@ -1,18 +1,20 @@
 # --- START OF FILE main.py ---
 import asyncio
 from pyrogram import Client
-from pytgcalls import idle  # <--- From pytgcalls
 import os
 import sys
 import random
 from bot import start_zombiebot
 from pyromod import listen
 
-loop = asyncio.get_event_loop()
+async def main():
+    await start_zombiebot()
+    print("Bot is running...")
+    await asyncio.Event().wait()  # يخلي البوت شغال دايمًا
 
 if __name__ == "__main__":
     try:
-        loop.run_until_complete(start_zombiebot())
+        asyncio.run(main())
     except KeyboardInterrupt:
         print("Bot stopped by user.")
     except Exception as e:
