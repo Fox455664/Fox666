@@ -4,8 +4,8 @@ from pyromod import listen
 from casery import caes, casery, group, source, photosource, caserid, ch, bot_token, bot_token2
 import os
 
-API_ID = int(os.getenv("API_ID", "25655555"))
-API_HASH = os.getenv("API_HASH", "57b330d11c2e758e6e3514ffc586bad5")
+API_ID = int(os.getenv("API_ID", "25761783"))
+API_HASH = os.getenv("API_HASH", "7770de22ee036afb30a99d449c51f4b8")
 
 # Ensure bot_token and bot_token2 are not None or empty
 if not bot_token:
