@@ -1,18 +1,18 @@
 FROM python:3.10
 
-# تحديث وتسطيب ffmpeg عشان الميوزك يشتغل
+# تحديث وتسطيب ffmpeg الضروري
 RUN apt-get update -y && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# تجهيز ملفات البوت
+# تسطيب المكاتب يدوي عشان نضمن وجودها
+RUN pip3 install -U pip
+RUN pip3 install pyrogram tgcrypto py-tgcalls yt-dlp youtube-search-python aiohttp Pillow numpy unidecode aiofiles pyromod requests redis gTTS pytz kvsqlite beautifulsoup4 telegraph wget python-dotenv
+
+# تجهيز الملفات
 COPY . /app/
 WORKDIR /app/
-
-# تسطيب المكاتب
-RUN pip3 install -U pip
-RUN pip3 install --no-cache-dir -U -r requirements.txt
 
 # أمر التشغيل
 CMD ["python3", "main.py"]
