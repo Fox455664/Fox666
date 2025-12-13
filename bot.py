@@ -4,15 +4,27 @@ from pyromod import listen
 from casery import caes, casery, group, source, photosource, caserid, ch, bot_token, bot_token2
 import os
 
-API_ID = int(os.getenv("API_ID", "25761783"))
-API_HASH = os.getenv("API_HASH", "7770de22ee036afb30a99d449c51f4b8")
+# جلب البيانات من إعدادات السيرفر فقط لضمان عدم استخدام بيانات قديمة
+API_ID = os.getenv("API_ID")
+API_HASH = os.getenv("API_HASH")
 
-# Ensure bot_token and bot_token2 are not None or empty
+# التحقق من وجود البيانات قبل التشغيل
 if not bot_token:
-    raise ValueError("BOT_TOKEN environment variable is not set!")
+    raise ValueError("BOT_TOKEN is missing! Please add it to Koyeb Environment Variables.")
 if not bot_token2:
-    raise ValueError("SESSION_STRING environment variable is not set!")
+    raise ValueError("SESSION_STRING is missing! Please add it to Koyeb Environment Variables.")
+if not API_ID:
+    raise ValueError("API_ID is missing! Please add it to Koyeb Environment Variables.")
+if not API_HASH:
+    raise ValueError("API_HASH is missing! Please add it to Koyeb Environment Variables.")
 
+# تحويل الـ API_ID لرقم
+try:
+    API_ID = int(API_ID)
+except ValueError:
+    raise ValueError("API_ID must be an integer number!")
+
+# تعريف الكلاينت
 bot = Client("CAR", api_id=API_ID, api_hash=API_HASH, bot_token=bot_token, plugins=dict(root="CASER"))
 lolo = Client("hossam", api_id=API_ID, api_hash=API_HASH, session_string=bot_token2)    
 
