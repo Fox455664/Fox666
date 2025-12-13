@@ -34,8 +34,8 @@ r = redis.Redis(
     decode_responses=True
 )
 
-API_ID = int(os.getenv("API_ID", "8186557"))
-API_HASH = os.getenv("API_HASH", "efd77b34c69c164ce158037ff5a0d117")
+API_ID = int(os.getenv("API_ID", "25761783"))
+API_HASH = os.getenv("API_HASH", "7770de22ee036afb30a99d449c51f4b8")
 Bots = []
 Musi = []
 CASER = [] 
@@ -226,4 +226,5 @@ def get_groups(bot_id):
         group_ids = r.smembers(f"botgroups{bot_id}")
         return [int(gid) for gid in group_ids]
     except:
+
         return []
