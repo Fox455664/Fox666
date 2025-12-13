@@ -39,6 +39,7 @@ photosource = os.getenv("SOURCE_PHOTO_URL", "https://envs.sh/ws4.webp")
 bot_token = os.getenv("BOT_TOKEN", "8400587535:AAFQyiZETQxYJgCQhXOzESv3pibI4vwQ4I0")
 
 ## جلسه الاشتراك (Helper Account Session String)
-bot_token2 = os.getenv("SESSION_STRING", "BAF5OpQAcC63VzQzOLP6X47PtfKRy5cyy_734-crPdorMVBFipR59RF43hjtx3WPdw7bCkqF7xt472bIcGi1PVdCfmwex26JLZ043brofbGNngyngoa_UZ4T3qhs0v_Pqa2tguXo1SCRi_rrDIsPmoVQkvB4S9QeCAwYovyiEoMm2RVSMMpXo3eht0l6-387RLWis_yIWTWPgH1p6tzAVYoxZCFebQvvzeKCBg8Mo8Ibs2BwvvEsyZknCh7OgbiRCHrDpHPEkNoGa-vAZkwS8GC7m9iM4oqvTq_jlDqELNMjsx0PGlyOYzfjSPKsYkRPozPd_4v4GUusjV-bVJpfuiWsu8p2fgAAAAHx6C_MAA")
+bot_token2 = os.getenv("SESSION_STRING", "BAF5OpQASbTm0m17rrq9F1ZW8z88sXhYRhI9wCieFiKcKgdCv96RAbeVBbkk06lSI_kNMxtgQb7wik6Ucq9OMNn8-J5BdC4YeCQyLiMfTZv5YmsTIfX-P7Mn5ZhaVSUOuzW59WS6xJ5TdWlK-NtWPdN_7ClKqOrwXCvNKECBgZdeqklpTNef3rjPv4nRIe3rC7pgPEivy-0OmCNIpJkbwnkeubmeiTOqLSiTYzVBSKUeJE3AX62UBP0r3GJ8V5Y1Y-QARQumWaGCw297P6ydv3kZv2_DADY3flKDsjWhsjsVvt8zkjhvrMc3XC-RDJxQ-GCyIyL4kjXuqb5Xon4KGk1UX9jhUQAAAAHx6C_MAA")
 # --- END OF FILE casery.py ---
+
 
