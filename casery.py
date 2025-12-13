@@ -36,8 +36,8 @@ group = os.getenv("SOURCE_GROUP_LINK", "https://t.me/fox68899")
 photosource = os.getenv("SOURCE_PHOTO_URL", "https://envs.sh/ws4.webp")
 
 ## توكن الصانع (Maker Bot Token)
-bot_token = os.getenv("BOT_TOKEN", "7661499048:AAGCcMZf4KsyLj2Cpx4qfNXT3KGgINjbX8Y")
+bot_token = os.getenv("BOT_TOKEN", "8400587535:AAFQyiZETQxYJgCQhXOzESv3pibI4vwQ4I0")
 
 ## جلسه الاشتراك (Helper Account Session String)
-bot_token2 = os.getenv("SESSION_STRING", "BAGn0OAAvek2iCILTBqu8upu1FxccdzwVXp5odvAsnzr72UK6wLJcg9uHcVpaJD2T0Iyp_c-UJ6XSMgU6xVQBoUdf4JrsSwuxsWOOoHVTqEPxmVSty0fFLNQAlA9WAl47y-VVEl-NnISunOONjrE-Rp6Auza4oLp8o57HUGsTmRQL5W8nq0u1rF4Kua4JIgTA4Sic0FObOpWvHhHS6WZVZqeECQswMFs3s3V-m8ZJOANJbEQKxOpZ6g3miaYC0IOrm4D8HW2scQ_gH0l6DjgDSTxM8YYIC52NDentqHcVfxHta8VKz4oYHFVK6Hr3XgCYANZOP8PoE8Ayr0473v3E7Yr1csR6wAAAAF6vTfkAA")
+bot_token2 = os.getenv("SESSION_STRING", "BAF5OpQAcC63VzQzOLP6X47PtfKRy5cyy_734-crPdorMVBFipR59RF43hjtx3WPdw7bCkqF7xt472bIcGi1PVdCfmwex26JLZ043brofbGNngyngoa_UZ4T3qhs0v_Pqa2tguXo1SCRi_rrDIsPmoVQkvB4S9QeCAwYovyiEoMm2RVSMMpXo3eht0l6-387RLWis_yIWTWPgH1p6tzAVYoxZCFebQvvzeKCBg8Mo8Ibs2BwvvEsyZknCh7OgbiRCHrDpHPEkNoGa-vAZkwS8GC7m9iM4oqvTq_jlDqELNMjsx0PGlyOYzfjSPKsYkRPozPd_4v4GUusjV-bVJpfuiWsu8p2fgAAAAHx6C_MAA"
 # --- END OF FILE casery.py ---
