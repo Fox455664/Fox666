@@ -1,0 +1,16 @@
+yt-dlp
+youtube-search-python
+aiohttp
+Pillow
+numpy
+unidecode
+aiofiles
+pyromod
+requests
+redis
+gTTS
+pytz
+kvsqlite
+beautifulsoup4
+telegraph
+wget
