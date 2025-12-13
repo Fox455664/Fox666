@@ -11,12 +11,11 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث pip
 RUN pip install --no-cache-dir --upgrade pip
 
-# 3️⃣ تثبيت المكتبات (نسخ متوافقة 100%)
+# 3️⃣ تثبيت المكتبات (نسخة مؤكدة شغالة)
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
-    pytgcalls==1.1.3 \
-    ntgcalls==1.1.3 \
+    pytgcalls==1.0.0 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
