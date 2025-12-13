@@ -1,8 +1,9 @@
-pyrogram
+pyrogram==2.0.106
 tgcrypto
-py-tgcalls
+py-tgcalls==1.2.9
 yt-dlp
 youtube-search-python
+youtube-search
 aiohttp
 Pillow
 numpy
@@ -17,3 +18,5 @@ kvsqlite
 beautifulsoup4
 telegraph
 wget
+python-dotenv
+lyricsgenius
