@@ -2,39 +2,27 @@
 import os
 
 # -- IMPORTANT --
-# القيم دي البوت هيجيبها من إعدادات Koyeb عشان الأمان
+# هنجيب البيانات من إعدادات Koyeb عشان نضمن إنها الجديدة
+# ومتتكتبش هنا عشان لو الحساب اتحظر منعدلش في الكود
 
-## مطورين السورس
 caes = ["@f_o_x_351", "zozooryy", "@cyv0we"]
-
-## يوزر المطور الاساسي
 casery = os.getenv("OWNER_USERNAME", "f_o_x_351")
-
-## ايدي مطور السورس الاساسي
 caserid = int(os.getenv("OWNER_ID", "7669264153"))
-
-## اسم البوتات بالعربى
 OWNER = os.getenv("BOT_NAME_AR", "النسور")
-
-## اسمك&الميوزك
 muusiic = os.getenv("MUSIC_TEXT", "SOURCE Titanx")
-
-## اسم السورس ع صوره التشغيل
 suorce = os.getenv("SOURCE_NAME_IMG", "SOURCE Titanx")
-
-## قناه السورس
 source = os.getenv("SOURCE_CHANNEL_LINK", "https://t.me/fox68899")
 ch = os.getenv("SOURCE_CHANNEL_USER", "fox68899")
-
-## جروب السورس
 group = os.getenv("SOURCE_GROUP_LINK", "https://t.me/fox68899")
-
-## لوجو السورس
 photosource = os.getenv("SOURCE_PHOTO_URL", "https://envs.sh/ws4.webp")
 
-## توكن الصانع (هيقراه من Koyeb)
+# هنا التغيير المهم: مسحنا القيم القديمة عشان يجبرها تيجي من Koyeb
 bot_token = os.getenv("BOT_TOKEN")
-
-## جلسه الاشتراك (هيقراها من Koyeb)
 bot_token2 = os.getenv("SESSION_STRING")
+
+# لو القيم مش موجودة نطلع خطأ عشان نعرف
+if not bot_token:
+    print("Error: BOT_TOKEN is missing in Environment Variables!")
+if not bot_token2:
+    print("Error: SESSION_STRING is missing in Environment Variables!")
 # --- END OF FILE casery.py ---
