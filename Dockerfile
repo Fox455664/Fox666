@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.9-slim
 
 # 1️⃣ متطلبات النظام
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
@@ -9,13 +9,13 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # 2️⃣ تحديث pip
-RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 3️⃣ تثبيت المكتبات (نسخة مؤكدة شغالة)
+# 3️⃣ تثبيت المكتبات (نسخ متوافقة فعليًا)
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
-    pytgcalls==1.0.0 \
+    pytgcalls==0.0.24 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
