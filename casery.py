@@ -2,46 +2,39 @@
 import os
 
 # -- IMPORTANT --
-# The following values should be set as environment variables for security.
-# Example:
-# bot_token = os.getenv("BOT_TOKEN")
-# bot_token2 = os.getenv("SESSION_STRING")
+# القيم دي البوت هيجيبها من إعدادات Koyeb عشان الأمان
 
-## مطورين السورس (Sudo users of the maker bot)
-caes = ["@f_o_x_351", "zozooryy", "@cyv0we"]  # Add your main developer usernames here
+## مطورين السورس
+caes = ["@f_o_x_351", "zozooryy", "@cyv0we"]
 
-## يوزر المطور الاساسي (The main developer's username)
+## يوزر المطور الاساسي
 casery = os.getenv("OWNER_USERNAME", "f_o_x_351")
 
-## ايدي مطور السورس الاساسي (The main developer's user ID)
+## ايدي مطور السورس الاساسي
 caserid = int(os.getenv("OWNER_ID", "7669264153"))
 
-## اسم البوتات بالعربى (Default bot name)
+## اسم البوتات بالعربى
 OWNER = os.getenv("BOT_NAME_AR", "النسور")
 
-## اسمك&الميوزك (Music text)
+## اسمك&الميوزك
 muusiic = os.getenv("MUSIC_TEXT", "SOURCE Titanx")
 
-## اسم السورس ع صوره التشغيل (Source name on image)
+## اسم السورس ع صوره التشغيل
 suorce = os.getenv("SOURCE_NAME_IMG", "SOURCE Titanx")
 
-## قناه السورس (Source channel link)
+## قناه السورس
 source = os.getenv("SOURCE_CHANNEL_LINK", "https://t.me/fox68899")
 ch = os.getenv("SOURCE_CHANNEL_USER", "fox68899")
 
-## جروب السورس (Source group link)
+## جروب السورس
 group = os.getenv("SOURCE_GROUP_LINK", "https://t.me/fox68899")
 
-## لوجو السورس(صوره السورس) (Source logo URL)
+## لوجو السورس
 photosource = os.getenv("SOURCE_PHOTO_URL", "https://envs.sh/ws4.webp")
 
-## توكن الصانع (Maker Bot Token)
-bot_token = os.getenv("BOT_TOKEN", "8400587535:AAFQyiZETQxYJgCQhXOzESv3pibI4vwQ4I0")
+## توكن الصانع (هيقراه من Koyeb)
+bot_token = os.getenv("BOT_TOKEN")
 
-## جلسه الاشتراك (Helper Account Session String)
-bot_token2 = os.getenv("SESSION_STRING", "BAGJF_cAWDFkOIyeF6FKzLI2N3Z7XLewcADkpfXq1_I-ajZHB_Lrs0R_ZV03NOgCdKkIlj3FHdojEquIWfvlcpSY6k7s1GyUvog95NxTUH2gLhaGu3iIHtZQZAxbUnJnm4MYgeFF62p1eOg31jixc_6DbvUeU4oN5ZtV2x_8tWeATSQsglilPoQEQUiNvLmCAfY8bYImZKiYlaajEIIHZ8FML4VlhCZZnqIJA_VHOZhHmXC2f26vItJ-VUrJl6-HLgzrDkEMWJvI3z8eY0ucvOLv-Um3GATyUF0AAb-l4gJy8lGiZbtEbc0YN4Z9QH2wdvshgt03Rozw_zaS7RwbPUpD6l3qVAAAAAH-B5eIAA")
+## جلسه الاشتراك (هيقراها من Koyeb)
+bot_token2 = os.getenv("SESSION_STRING")
 # --- END OF FILE casery.py ---
-
-
-
-
