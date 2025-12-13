@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-# 1️⃣ تثبيت المتطلبات الأساسية
+# 1️⃣ متطلبات النظام
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     ffmpeg \
     git \
@@ -11,11 +11,12 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث pip
 RUN pip install --no-cache-dir --upgrade pip
 
-# 3️⃣ تثبيت مكتبات البايثون (إصدار صحيح من py-tgcalls)
+# 3️⃣ تثبيت المكتبات (نسخ متوافقة 100%)
 RUN pip install --no-cache-dir \
-    pyrogram \
+    pyrogram==2.0.106 \
     tgcrypto \
-    py-tgcalls==1.1.6 \
+    pytgcalls==1.1.3 \
+    ntgcalls==1.1.3 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
@@ -35,9 +36,9 @@ RUN pip install --no-cache-dir \
     wget \
     python-dotenv
 
-# 4️⃣ نسخ ملفات المشروع
+# 4️⃣ نسخ المشروع
 WORKDIR /app
 COPY . .
 
-# 5️⃣ أمر التشغيل
+# 5️⃣ التشغيل
 CMD redis-server --daemonize yes && python3 main.py
