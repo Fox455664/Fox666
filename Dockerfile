@@ -1,20 +1,43 @@
-FROM python:3.10
+FROM python:3.10-slim
 
-# 1. تحديث وتسطيب ffmpeg و git و redis-server
-RUN apt-get update -y && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends ffmpeg git redis-server \
+# 1️⃣ تثبيت المتطلبات الأساسية
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    git \
+    redis-server \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. تحديث pip
-RUN pip3 install -U pip
+# 2️⃣ تحديث pip
+RUN pip install --no-cache-dir --upgrade pip
 
-# 3. تسطيب المكاتب (بالإصدار الصحيح 1.1.0 + redis)
-RUN pip3 install --no-cache-dir pyrogram tgcrypto py-tgcalls==1.1.0 yt-dlp youtube-search-python youtube-search aiohttp Pillow numpy unidecode aiofiles pyromod requests redis gTTS pytz kvsqlite beautifulsoup4 telegraph wget python-dotenv
+# 3️⃣ تثبيت مكتبات البايثون (إصدار صحيح من py-tgcalls)
+RUN pip install --no-cache-dir \
+    pyrogram \
+    tgcrypto \
+    py-tgcalls==1.1.6 \
+    yt-dlp \
+    youtube-search-python \
+    youtube-search \
+    aiohttp \
+    Pillow \
+    numpy \
+    unidecode \
+    aiofiles \
+    pyromod \
+    requests \
+    redis \
+    gTTS \
+    pytz \
+    kvsqlite \
+    beautifulsoup4 \
+    telegraph \
+    wget \
+    python-dotenv
 
-# 4. تجهيز الملفات
-COPY . /app/
-WORKDIR /app/
+# 4️⃣ نسخ ملفات المشروع
+WORKDIR /app
+COPY . .
 
-# 5. أمر التشغيل (بيشغل الـ Redis في الخلفية وبعدين يشغل البوت)
+# 5️⃣ أمر التشغيل
 CMD redis-server --daemonize yes && python3 main.py
