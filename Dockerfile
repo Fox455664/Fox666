@@ -12,12 +12,12 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث أدوات بايثون
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 3️⃣ تثبيت المكتبات (التصحيح النهائي)
-# تم تغيير الإصدار إلى 1.2.9 لأنه متوافق وموجود بالفعل
+# 3️⃣ تثبيت المكتبات (التصحيح النهائي لإصلاح خطأ InputMode)
+# النسخة 1.1.6 هي الأكثر استقراراً وتوافقاً مع بوتات الميوزك
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
-    py-tgcalls==1.2.9 \
+    py-tgcalls==1.1.6 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
