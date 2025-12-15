@@ -6,6 +6,7 @@ import asyncio
 from typing import Optional
 from pyrogram.types import Message
 from pytgcalls import PyTgCalls, StreamType
+# --- التعديل هنا ---
 from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
