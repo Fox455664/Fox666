@@ -19,7 +19,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from pytgcalls import PyTgCalls
 from pytgcalls.types import Update
-from pytgcalls.types import StreamEnded
+from pytgcalls.types import StreamAudioEnded
  
 from pytgcalls.types.stream import AudioPiped, AudioVideoPiped
  
@@ -1177,4 +1177,5 @@ async def leave_group(client, message):
    if message.from_user and (message.from_user.id == OWNER_ID or message.from_user.username in caes):
      if message.text == "اخروج": 
         await message.reply_text("سأغادر الآن 👋")
+
         await client.leave_chat(message.chat.id)
