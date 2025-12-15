@@ -12,12 +12,12 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث أدوات بايثون
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 3️⃣ تثبيت المكتبات (التصحيح النهائي لإصلاح خطأ InputMode)
-# النسخة 1.1.6 هي الأكثر استقراراً وتوافقاً مع بوتات الميوزك
+# 3️⃣ تثبيت المكتبات (الحل النهائي: التوافق مع الكود الداخلي)
+# النسخة 1.0.12 هي الوحيدة التي تحتوي على InputMode وتعمل مع كود play.py الخاص بك
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
-    py-tgcalls==1.1.6 \
+    py-tgcalls==1.0.12 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
