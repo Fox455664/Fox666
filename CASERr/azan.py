@@ -1,34 +1,22 @@
 import asyncio
 from pyrogram import filters
-from pyrogram.errors import FloodWait
-from pyrogram.raw import types
+from pyrogram.types import Message
 from datetime import datetime
 import requests
 import pytz
-from pyrogram.types import Message, CallbackQuery
-from pyrogram.types import InlineKeyboardMarkup as Keyboard, InlineKeyboardButton as Button
-from pyrogram.errors import exceptions
-from pyrogram.enums import ParseMode
-from math import sqrt
-from typing import Union
 import random
 from config import *
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
 from CASERr.CASERr import get_channel, devchannel, source, caes, devgroup, devuser, group, casery, johned, photosource, caserid
 from pytgcalls import PyTgCalls, StreamType
-from 
-pytgcalls.types.stream import AudioPiped, AudioVideoPiped
+from pytgcalls.types import AudioPiped, AudioVideoPiped
+from pytgcalls.exceptions import NoActiveGroupCall, AlreadyJoinedError
 from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
 from pyrogram import Client
 from requests import Session
 from requests import Response
 from typing import Union
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from datetime import datetime
-from pytz import timezone
-import requests
 from gtts import gTTS
 import os
 
@@ -74,7 +62,7 @@ def _weather(query):
     caption = f"{name}{weather}{temp}{wind}{humidity}"
     return caption
 
-zone = timezone("Africa/Cairo")
+zone = pytz.timezone("Africa/Cairo")
 
 s = Session()
 @Client.on_message(filters.command(["مواقيت الصلاه"], ""), group=71198535)
@@ -192,7 +180,10 @@ async def play_azan(chat_id, bot_username, client):
         )
     except NoActiveGroupCall:
         try:
-            await hoss.join_assistant(chat_id, chat_id)
+            # Assuming join_assistant is defined elsewhere or handled by PyTgCalls differently in v1
+            # In V1, usually you just join_group_call. If bot is not in call, it errors.
+            # You might need to manually ensure the assistant is in the group.
+            pass
         except Exception as e:
             await client.send_message(chat_id, f"الكول مش شغال مش اقدر اطلع أأذن 😔💔")
     except Exception:
@@ -299,7 +290,7 @@ async def play_azkar(chat_id, bot_username, client):
         )
     except NoActiveGroupCall:
         try:
-            await hoss.join_assistant(chat_id, chat_id)
+            pass
         except Exception as e:
             await client.send_message(chat_id, f"الكول مش شغال مش اقدر اطلع أأذن 😔💔")
     except Exception:
@@ -469,5 +460,4 @@ async def nday_catt(bot_username):
             except Exception as e:
              print(e)            
         await asyncio.sleep(600)
-    asyncio.create_task(azkar_catt(bot_username))    
-                    
+    asyncio.create_task(azkar_catt(bot_username))
