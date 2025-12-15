@@ -2,37 +2,16 @@ from pyrogram import Client, filters
 from pyrogram.raw.functions.phone import EditGroupCallParticipant as Edit, RequestCall
 from pyrogram.raw.functions.phone import GetGroupCall
 from pyrogram.raw.types import InputGroupCall
-from pyrogram import filters, Client
 import asyncio
-import pyrogram
 from typing import Optional
-from pyrogram import Client, enums, filters
-import pyrogram
-from pyrogram import Client
-import asyncio
-from pyrogram import Client, idle
-from random import randint
-from typing import Optional
+from pyrogram.types import Message
 from pytgcalls import PyTgCalls, StreamType
-from 
-pytgcalls.types.stream import AudioPiped, AudioVideoPiped
-from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
-from 
-pytgcalls.types.stream import AudioPiped, AudioVideoPiped
-from pyrogram.raw.base import GroupCallParticipant
+from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
-from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall, EditGroupCallParticipant
-from pyrogram.raw.types import InputGroupCall, InputPeerChannel, InputPeerChat, InputUserSelf, GroupCallParticipant
-from pyrogram.types import Message
-import asyncio
-from pyrogram import filters
-from pyrogram.errors import FloodWait
-from pyrogram.raw import types
-from datetime import datetime
-import requests
-import pytz
-from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
+from pyrogram.raw.types import InputPeerChannel, InputPeerChat
+
+# --- Local Imports ---
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
 from CASERr.CASERr import get_channel, devchannel, source, caes
