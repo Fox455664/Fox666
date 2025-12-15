@@ -2,6 +2,7 @@ from pyrogram import filters, Client
 import asyncio
 from typing import Optional
 from pytgcalls import PyTgCalls, StreamType
+# --- التعديل هنا ---
 from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
@@ -37,12 +38,11 @@ async def ghsdh_user(client, message):
       text +=f"{k}➤{user.mention}➤{mut}\n"
      await hh.edit_text(f"{text}")
      await hoss.leave_group_call(message.chat.id)
-    except Exception as e: # NoActiveGroupCall might not be imported correctly if strict check, broad exception covers it or define imports
-     # To be safe, catching Exception generally here as the specific errors might vary slightly by version if not imported
+    except Exception as e: 
+     # التعامل الآمن مع الأخطاء
      if "NoActiveGroupCall" in str(e) or "NoActiveGroupCall" in str(type(e)):
         await message.reply(f"حبيبي الكول مش مفتوح اصلااا\n😜")
      elif isinstance(e, AlreadyJoinedError):
-         # If already joined, just list participants
          text="😎🥰 الاشخاص المتواجدين في الكول:\n\n"
          participants = await hoss.get_participants(message.chat.id)
          k = 0
