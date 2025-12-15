@@ -1,6 +1,6 @@
 pyrogram==2.0.106
 tgcrypto
-py-tgcalls==1.0.12
+py-tgcalls==1.0.9
 yt-dlp
 youtube-search-python
 youtube-search
