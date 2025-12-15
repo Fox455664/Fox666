@@ -1,37 +1,20 @@
 from pyrogram import filters, Client
 import asyncio
-import pyrogram
-from typing import Optional
-from pyrogram import Client, enums, filters
-import pyrogram
-from pyrogram import Client
-import asyncio
-from pyrogram import Client, idle
-from random import randint
 from typing import Optional
 from pytgcalls import PyTgCalls, StreamType
-from 
-pytgcalls.types.stream import AudioPiped, AudioVideoPiped
-from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
-from 
-pytgcalls.types.stream import AudioPiped, AudioVideoPiped
-from pyrogram.raw.base import GroupCallParticipant
+from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
-from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall, EditGroupCallParticipant
-from pyrogram.raw.types import InputGroupCall, InputPeerChannel, InputPeerChat, InputUserSelf, GroupCallParticipant
+from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall
+from pyrogram.raw.types import InputGroupCall, InputPeerChannel, InputPeerChat
 from pyrogram.types import Message
-import asyncio
-from pyrogram import filters
-from pyrogram.errors import FloodWait
-from pyrogram.raw import types
-from datetime import datetime
-import requests
-import pytz
-from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
+from pyrogram.errors import AlreadyJoinedError
+
+# --- Local Imports ---
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
 from CASERr.CASERr import get_channel, devchannel, source, caes
+from random import randint
 
 @Client.on_message(filters.command(["مين في الكول","م ف ك","مين ف الكول","مين ف كول "], ""))
 async def ghsdh_user(client, message):
@@ -54,24 +37,27 @@ async def ghsdh_user(client, message):
       text +=f"{k}➤{user.mention}➤{mut}\n"
      await hh.edit_text(f"{text}")
      await hoss.leave_group_call(message.chat.id)
-    except NoActiveGroupCall:
-     await message.reply(f"حبيبي الكول مش مفتوح اصلااا\n😜")
-    except Exception:
-     await message.reply(f"ارسل الامر تاني في مشكله في سيرفر التلجرام\n😜")
-    except AlreadyJoinedError:
-     text="😎🥰 الاشخاص المتواجدين في الكول:\n\n"
-     participants = await hoss.get_participants(message.chat.id)
-     k = 0
-     for participant in participants:
-      info = participant
-      if info.muted == False:
-       mut="يتحدث 🗣"
-      else:
-       mut="ساكت 🔕"
-      user = await client.get_users(participant.user_id)
-      k +=1
-      text +=f"{k}➤{user.mention}➤{mut}\n"
-      await hh.edit_text(f"{text}")
+    except Exception as e: # NoActiveGroupCall might not be imported correctly if strict check, broad exception covers it or define imports
+     # To be safe, catching Exception generally here as the specific errors might vary slightly by version if not imported
+     if "NoActiveGroupCall" in str(e) or "NoActiveGroupCall" in str(type(e)):
+        await message.reply(f"حبيبي الكول مش مفتوح اصلااا\n😜")
+     elif isinstance(e, AlreadyJoinedError):
+         # If already joined, just list participants
+         text="😎🥰 الاشخاص المتواجدين في الكول:\n\n"
+         participants = await hoss.get_participants(message.chat.id)
+         k = 0
+         for participant in participants:
+          info = participant
+          if info.muted == False:
+           mut="يتحدث 🗣"
+          else:
+           mut="ساكت 🔕"
+          user = await client.get_users(participant.user_id)
+          k +=1
+          text +=f"{k}➤{user.mention}➤{mut}\n"
+          await hh.edit_text(f"{text}")
+     else:
+        await message.reply(f"ارسل الامر تاني في مشكله في سيرفر التلجرام\n😜")
       
 async def get_group_call(
     client: Client, message: Message, err_message: str = ""
@@ -163,4 +149,3 @@ async def brah2(client, message):
             await message.reply(f"**- تم انهاء مكالمة الفيديو مدتها {day[0]} ايام**")  
         else:
             await message.reply(f"**- تم إنهاء مكالمة الفيديو مدتها {day[0]} يوم**")
-     
