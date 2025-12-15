@@ -19,8 +19,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from pytgcalls import PyTgCalls
 from pytgcalls.types import Update
-# تصحيح الاستيراد ليتوافق مع الإصدار 1.1.6
-from pytgcalls.types import StreamAudioEnded, AudioPiped, AudioVideoPiped, HighQualityAudio, MediumQualityVideo
+# --- التعديل هنا: الاستيراد الصحيح للإصدار 1.1.6 ---
+from pytgcalls.types import StreamAudioEnded, AudioPiped, AudioVideoPiped, HighQualityAudio, MediumQualityVideo, MediumQualityAudio
 
 # --- Local Imports ---
 from config import user, dev, call, logger, appp
@@ -560,6 +560,7 @@ async def msonhfbg(client, message):
         
     audio_file = await download(client, bot_username, link, vid)
 
+    # --- FIX START: The following block was unindented ---
     if not audio_file:
         await mm.delete()
         return await message.reply_text("**تعذر تحميل الأغنية. تأكد أن الرابط متاح أو جرّب اسم مختلف.**")
@@ -589,6 +590,7 @@ async def msonhfbg(client, message):
 
     await client.send_photo(group_id, photo=photo, caption=f"**𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n𝗕𝘆 : {user_mention}\n𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})**", reply_markup=InlineKeyboardMarkup(button), reply_to_message_id=message.id)
     await client.send_message(logger, f"**╭── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╮\n\n⌁ |𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n⌁ |𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n⌁ |𝗕𝘆 : {user_mention}\n⌁ |𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})\n\n╰── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╯**", disable_web_page_preview=True)
+    # --- FIX END ---
     
 async def jaoin_call(bot_username, message, audio_file, group_id, vid, user_mention, thum, namechat):
     Done = None
