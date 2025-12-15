@@ -10,6 +10,7 @@ from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
 from CASERr.CASERr import get_channel, devchannel, source, caes, devgroup, devuser, group, casery, johned, photosource, caserid
 from pytgcalls import PyTgCalls, StreamType
+# --- التعديل هنا ---
 from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pytgcalls.exceptions import NoActiveGroupCall, AlreadyJoinedError
 from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
@@ -180,9 +181,6 @@ async def play_azan(chat_id, bot_username, client):
         )
     except NoActiveGroupCall:
         try:
-            # Assuming join_assistant is defined elsewhere or handled by PyTgCalls differently in v1
-            # In V1, usually you just join_group_call. If bot is not in call, it errors.
-            # You might need to manually ensure the assistant is in the group.
             pass
         except Exception as e:
             await client.send_message(chat_id, f"الكول مش شغال مش اقدر اطلع أأذن 😔💔")
