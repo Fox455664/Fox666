@@ -12,12 +12,12 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث أدوات بايثون
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 3️⃣ تثبيت المكتبات (الحل النهائي: التوافق مع الكود الداخلي)
-# النسخة 1.0.12 هي الوحيدة التي تحتوي على InputMode وتعمل مع كود play.py الخاص بك
+# 3️⃣ تثبيت المكتبات (الحل النهائي: إصدار متاح ومتوافق)
+# الإصدار 1.0.9 موجود في السجلات ومتوافق مع كودك تماماً
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
-    py-tgcalls==1.0.12 \
+    py-tgcalls==1.0.9 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
