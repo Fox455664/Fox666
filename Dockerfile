@@ -12,12 +12,12 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث أدوات بايثون
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 3️⃣ تثبيت المكتبات (الحل الجذري: تثبيت المحرك الداخلي ntgcalls بنفس إصدار المكتبة)
+# 3️⃣ تثبيت المكتبات (تنفيذ فكرتك الذكية: py-tgcalls 1.1.6 مع ntgcalls 1.1.3)
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
-    ntgcalls==1.0.9 \
-    py-tgcalls==1.0.9 \
+    ntgcalls==1.1.3 \
+    py-tgcalls==1.1.6 \
     yt-dlp \
     youtube-search-python \
     youtube-search \
