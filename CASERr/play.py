@@ -19,11 +19,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from pytgcalls import PyTgCalls
 from pytgcalls.types import Update
-from pytgcalls.types import StreamAudioEnded
- 
-from pytgcalls.types.stream import AudioPiped, AudioVideoPiped
- 
-from pytgcalls.types.stream.quality import HighQualityAudio, MediumQualityVideo
+# تصحيح الاستيراد ليتوافق مع الإصدار 1.1.6
+from pytgcalls.types import StreamAudioEnded, AudioPiped, AudioVideoPiped, HighQualityAudio, MediumQualityVideo
 
 # --- Local Imports ---
 from config import user, dev, call, logger, appp
@@ -563,7 +560,6 @@ async def msonhfbg(client, message):
         
     audio_file = await download(client, bot_username, link, vid)
 
-    # --- FIX START: The following block was unindented ---
     if not audio_file:
         await mm.delete()
         return await message.reply_text("**تعذر تحميل الأغنية. تأكد أن الرابط متاح أو جرّب اسم مختلف.**")
@@ -593,123 +589,6 @@ async def msonhfbg(client, message):
 
     await client.send_photo(group_id, photo=photo, caption=f"**𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n𝗕𝘆 : {user_mention}\n𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})**", reply_markup=InlineKeyboardMarkup(button), reply_to_message_id=message.id)
     await client.send_message(logger, f"**╭── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╮\n\n⌁ |𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n⌁ |𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n⌁ |𝗕𝘆 : {user_mention}\n⌁ |𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})\n\n╰── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╯**", disable_web_page_preview=True)
-    # --- FIX END ---
-
-@Client.on_message(filters.command(["شغل", "تشغيل", "فيد", "فديو", "/vplay", "/play"], "") & filters.channel, group=57655580)
-async def msonhfbhdhjhg(client, message):
-    hhs = client.me.username
-    if hhs in Music.get(hhs, []):
-        return
-    bot_username = client.me.username
-    user = await get_userbot(bot_username) 
-    hoss = await get_call(bot_username)
-    devus = devuser.get(bot_username) if devuser.get(bot_username) else f"{casery}"
-    soesh = devchannel.get(bot_username) if devchannel.get(bot_username) else f"{source}"
-    gr = devgroup.get(bot_username) if devgroup.get(bot_username) else f"{group}"
-    OWNER_ID = await get_dev(bot_username)
-    logger = await get_logger(bot_username)
-    usr = await client.get_chat(devus)
-    CASER = usr.username
-    name = usr.first_name
-    group_id = message.chat.id
-    if message.reply_to_message:
-        if "v" in message.command[0] or "ف" in message.command[0]:
-            vid = True
-        else:
-            vid = None
-        mhm = await message.reply_text("**جاري تحميل الريك او الفديو انتظر**")
-        photo = photosource
-        audio_file = await message.reply_to_message.download()
-        thum = "ملف صوتي" if message.reply_to_message.audio else "ملف فيديو"
-        namechat = f"{message.chat.title}"
-        button = [[InlineKeyboardButton(text="◁", callback_data=f"resume"), InlineKeyboardButton(text="II", callback_data=f"pause"), InlineKeyboardButton(text="▢", callback_data=f"stop"), InlineKeyboardButton(text="▷▷", callback_data=f"skip")], [InlineKeyboardButton(text="𝗖𝗵𝗔𝗻𝗘𝗲𝗟", url=f"{soesh}"), InlineKeyboardButton(text="𝗚𝗿𝗢𝘂𝗣", url=f"{gr}")], [InlineKeyboardButton(text=f"{name}", url=f"https://t.me/{CASER}")], [InlineKeyboardButton(text="𝗔𝗱𝗗 𝗕𝗼𝗧 𝗧𝗼 𝗬𝗼𝗨𝗿 𝗚𝗿𝗢𝘂𝗣", url=f"https://t.me/{bot_username}?startgroup=True")]]
-        loggerlink = message.chat.username if message.chat.username else f"https://t.me/c/{str(message.chat.id).replace('-100', '')}"
-        user_mention = f"{message.from_user.mention}" if message.from_user else f"{message.author_signature}"
-        c = await join_call(bot_username, OWNER_ID, client, message, audio_file, group_id, vid, user_mention, photo, thum, namechat)
-        await mhm.delete()
-        os.remove(audio_file)
-        if not c:
-            return
-        await client.send_photo(group_id, photo=photo, caption=f"**𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n𝗕𝘆 : {user_mention}\n𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})**", reply_markup=InlineKeyboardMarkup(button), reply_to_message_id=message.id)
-        await client.send_message(logger, f"**╭── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╮\n\n⌁ |𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n⌁ |𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n⌁ |𝗕𝘆 : {user_mention}\n⌁ |𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})\n\n╰── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╯**", disable_web_page_preview=True)
-        return
-
-    try:
-        text = message.text.split(None, 1)[1]
-    except IndexError:
-        try:
-            nme = await client.ask(message.chat.id, text="**استر يعم عايز تشغل اي بق 😂**", reply_to_message_id=message.id, timeout=200)
-            text = nme.text
-        except asyncio.TimeoutError:
-            return await message.reply_text("انتهى الوقت.")
-            
-    if text in yoro:
-        return await message.reply_text("**لا يمكن تشغيل هذا**")  
-        
-    mm = await message.reply_text("**جاري التشغيل انتظر 🎵♥**")    
-    try:
-        results = VideosSearch(text, limit=1)
-        res = (await results.next())["result"]
-        if not res:
-            await mm.delete()
-            return await message.reply_text("**لم يتم العثور على نتائج.**")
-        result = res[0]
-        thum = result["title"]
-        duration = result["duration"]
-        videoid = result["id"]
-        yturl = result["link"]
-    except Exception as e:
-        await mm.delete()
-        return await message.reply_text(f"**حدث خطأ اثناء البحث: {e}**")
-
-    if "v" in message.command[0] or "ف" in message.command[0]:
-        vid = True
-    else:
-        vid = None
-        
-    try:
-        search_results = YoutubeSearch(text, max_results=1).to_dict()
-        if not search_results:
-            await mm.delete()
-            return await message.reply_text("**لم يتم العثور على نتائج.**")
-        link = f"{search_results[0]['url_suffix']}"
-    except Exception as e:
-        await mm.delete()
-        return await message.reply_text(f"**حدث خطأ اثناء البحث: {e}**")
-
-    audio_file = await download(client, bot_username, link, vid)
-
-    # --- FIX START: The following block was unindented ---
-    if not audio_file:
-        await mm.delete()
-        return await message.reply_text("**تعذر تحميل الأغنية. تأكد أن الرابط متاح أو جرّب اسم مختلف.**")
-
-    photo = await gen_bot_caesar(client, bot_username, OWNER_ID, CASER, message, videoid)   
-    namechat = f"{message.chat.title}"     
-    button = [[
-        InlineKeyboardButton(text="◁", callback_data=f"resume"),
-        InlineKeyboardButton(text="II", callback_data=f"pause"),
-        InlineKeyboardButton(text="▢", callback_data=f"stop"),
-        InlineKeyboardButton(text="▷▷", callback_data=f"skip")
-    ], [
-        InlineKeyboardButton(text="𝗖𝗵𝗔𝗻𝗘𝗲𝗟", url=f"{soesh}"),
-        InlineKeyboardButton(text="𝗚𝗿𝗢𝘂𝗣", url=f"{gr}")
-    ], [
-        InlineKeyboardButton(text=f"{name}", url=f"https://t.me/{CASER}")
-    ], [
-        InlineKeyboardButton(text="𝗔𝗱𝗗 𝗕𝗼𝗧 𝗧𝗼 𝗬𝗼𝗨𝗿 𝗚𝗿𝗢𝘂𝗣", url=f"https://t.me/{bot_username}?startgroup=True")
-    ]]
-    loggerlink = message.chat.username if message.chat.username else f"https://t.me/c/{str(message.chat.id).replace('-100', '')}"
-    await mm.delete()
-    user_mention = f"{message.from_user.mention}" if message.from_user else f"{message.author_signature}"
-
-    c = await join_call(bot_username, OWNER_ID, client, message, audio_file, group_id, vid, user_mention, photo, thum, namechat)
-    if not c:
-        return
-
-    await client.send_photo(group_id, photo=photo, caption=f"**𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n𝗕𝘆 : {user_mention}\n𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})**", reply_markup=InlineKeyboardMarkup(button), reply_to_message_id=message.id)
-    await client.send_message(logger, f"**╭── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╮\n\n⌁ |𝗣𝗹𝗔𝘆𝗜𝗻𝗚 𝗡𝗼𝗪 𝗦𝘁𝗔𝗿𝗧𝗲𝗗\n\n⌁ |𝗦𝗼𝗡𝗴 𝗡𝗮𝗠𝗲 : `{thum}`\n⌁ |𝗕𝘆 : {user_mention}\n⌁ |𝗚𝗿𝗢𝘂𝗣 𝗕𝘆 : [{namechat}]({loggerlink})\n\n╰── : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh}) : ──╯**", disable_web_page_preview=True)
-    # --- FIX END ---
     
 async def jaoin_call(bot_username, message, audio_file, group_id, vid, user_mention, thum, namechat):
     Done = None
