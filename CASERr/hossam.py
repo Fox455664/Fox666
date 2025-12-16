@@ -2,17 +2,21 @@ from pyrogram import Client, filters
 from pyrogram.raw.functions.phone import EditGroupCallParticipant as Edit, RequestCall
 from pyrogram.raw.functions.phone import GetGroupCall
 from pyrogram.raw.types import InputGroupCall
-import asyncio
 from typing import Optional
-from pyrogram.types import Message
+import asyncio
+from pyrogram import Client, enums
 from pytgcalls import PyTgCalls, StreamType
-# --- التعديل هنا ---
-from pytgcalls.types import AudioPiped, AudioVideoPiped
+from pytgcalls.types.stream import AudioPiped, AudioVideoPiped
+from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
+from pyrogram.raw.base import GroupCallParticipant
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
-from pyrogram.raw.types import InputPeerChannel, InputPeerChat
-
-# --- Local Imports ---
+from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall
+from pyrogram.raw.types import InputPeerChannel, InputPeerChat, InputUserSelf
+from pyrogram.types import Message
+from datetime import datetime
+import requests
+import pytz
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
 from CASERr.CASERr import get_channel, devchannel, source, caes
