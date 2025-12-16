@@ -1,47 +1,47 @@
 import asyncio
-from pyrogram import Client
-import os
-import sys
 import logging
+import threading
+from flask import Flask
+
 from bot import start_zombiebot
 
-# ================= Flask =================
-from flask import Flask
-import threading
-
+# ======================
+# Flask Health Check
+# ======================
 app = Flask(__name__)
 
 @app.route("/")
-def home():
-    return "Bot is running"
+def health():
+    return "OK", 200
+
 
 def run_flask():
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=8000)
 
-# =========================================
 
-# إعداد السجلات
-logging.basicConfig(level=logging.INFO)
+# ======================
+# Logging
+# ======================
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+    datefmt="%d-%b-%y %H:%M:%S"
+)
 logger = logging.getLogger("Main")
 
+
+# ======================
+# Main
+# ======================
 async def main():
     logger.info("Initializing system...")
+    await start_zombiebot()
 
-    # تشغيل Flask في Thread منفصل
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.daemon = True
-    flask_thread.start()
-
-    try:
-        await start_zombiebot()
-    except Exception as e:
-        logger.error(f"CRITICAL ERROR in main loop: {e}", exc_info=True)
-
-    logger.info("Service is running. Press Ctrl+C to stop.")
-    await asyncio.Event().wait()
 
 if __name__ == "__main__":
+    # تشغيل Flask في Thread
+    threading.Thread(target=run_flask, daemon=True).start()
+
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
