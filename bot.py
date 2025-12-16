@@ -3,6 +3,7 @@ import logging
 from pyrogram import Client, idle
 from pyromod import listen
 from casery import caes, casery, bot_token, bot_token2
+import shared
 
 # ======================
 # Logging
@@ -22,7 +23,7 @@ API_HASH = os.getenv("API_HASH")
 
 if not API_ID or not API_HASH:
     logger.error("❌ API_ID or API_HASH is missing!")
-    exit(1)
+    raise SystemExit(1)
 
 API_ID = int(API_ID)
 
@@ -34,7 +35,7 @@ bot = Client(
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=bot_token,
-    plugins=dict(root="CASERr")  # ✅ البلجنات هنا
+    plugins=dict(root="CASERr")  # ✅ تحميل البلجنات
 )
 
 lolo = Client(
@@ -48,20 +49,23 @@ lolo = Client(
 # Start Bot
 # ======================
 async def start_zombiebot():
-    logger.info("جاري تشغيل البوت الأساسي...")
+    logger.info("🚀 جاري تشغيل البوت الأساسي...")
     await bot.start()
 
     me = await bot.get_me()
+    shared.bot_id = me.id  # ✅ تخزين الـ bot_id بشكل آمن
+
     logger.info(f"✅ تم تشغيل البوت: @{me.username} | ID: {me.id}")
 
-    logger.info("جاري تشغيل الحساب المساعد...")
+    logger.info("🤖 جاري تشغيل الحساب المساعد...")
     try:
         await lolo.start()
+        logger.info("✅ الحساب المساعد اشتغل بنجاح")
     except Exception as e:
         logger.warning(f"⚠️ فشل تشغيل الحساب المساعد: {e}")
 
     if casery:
         await bot.send_message(casery, "✅ تم تشغيل البوت بنجاح")
 
-    logger.info("🚀 النظام يعمل الآن بالكامل")
+    logger.info("🔥 النظام يعمل الآن بالكامل")
     await idle()
