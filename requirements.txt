@@ -21,3 +21,4 @@ telegraph
 wget
 python-dotenv
 lyricsgenius
+flask
