@@ -1,44 +1,76 @@
-# --- START OF FILE bot.py ---
+import os
+import logging
 from pyrogram import Client, idle
 from pyromod import listen
-from casery import caes, casery, group, source, photosource, caserid, ch, bot_token, bot_token2
-import os
+from casery import caes, casery, bot_token, bot_token2
 
-# جلب البيانات من إعدادات السيرفر فقط لضمان عدم استخدام بيانات قديمة
+# إعداد السجلات لرؤية الأخطاء في Koyeb
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+    datefmt="%d-%b-%y %H:%M:%S",
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# جلب البيانات
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
 
-# التحقق من وجود البيانات قبل التشغيل
-if not bot_token:
-    raise ValueError("BOT_TOKEN is missing! Please add it to Koyeb Environment Variables.")
-if not bot_token2:
-    raise ValueError("SESSION_STRING is missing! Please add it to Koyeb Environment Variables.")
-if not API_ID:
-    raise ValueError("API_ID is missing! Please add it to Koyeb Environment Variables.")
-if not API_HASH:
-    raise ValueError("API_HASH is missing! Please add it to Koyeb Environment Variables.")
+if not API_ID or not API_HASH:
+    logger.error("❌ API_ID or API_HASH is missing!")
+    exit(1)
 
-# تحويل الـ API_ID لرقم
 try:
     API_ID = int(API_ID)
 except ValueError:
-    raise ValueError("API_ID must be an integer number!")
+    logger.error("❌ API_ID must be an integer!")
+    exit(1)
 
-# تعريف الكلاينت
-bot = Client("CAR", api_id=API_ID, api_hash=API_HASH, bot_token=bot_token, plugins=dict(root="CASER"))
-lolo = Client("hossam", api_id=API_ID, api_hash=API_HASH, session_string=bot_token2)    
+# تعريف الكلاينت (بدون تحميل البلاغنز هنا لتجنب التداخل الدائري)
+bot = Client(
+    "CAR",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=bot_token,
+    plugins=dict(root="CASER") # سيتم تحميل البلاغنز عند عمل start
+)
+
+lolo = Client(
+    "hossam",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    session_string=bot_token2
+)
 
 DEVS = caes
 DEVSs = []
-bot_id = bot_token.split(":")[0]
 
 async def start_zombiebot():
-    print("تم تشغيل الصانع بنجاح..💗")
-    await bot.start()
-    await lolo.start()
+    logger.info("جاري تشغيل البوت الأساسي...")
     try:
-      await bot.send_message(casery, "**تم تشغيل الصانع بنجاح..💗**")
+        await bot.start()
+        me = await bot.get_me()
+        logger.info(f"✅ تم تشغيل البوت: @{me.username}")
     except Exception as e:
-      print(f"Could not send start message to owner: {e}")
+        logger.error(f"❌ فشل تشغيل البوت: {e}")
+        return
+
+    logger.info("جاري تشغيل الحساب المساعد...")
+    try:
+        await lolo.start()
+        user = await lolo.get_me()
+        logger.info(f"✅ تم تشغيل المساعد: {user.first_name}")
+    except Exception as e:
+        logger.error(f"⚠️ فشل تشغيل الحساب المساعد (تأكد من كود الجلسة): {e}")
+
+    try:
+        if casery:
+            await bot.send_message(casery, "**✅ تم تشغيل الصانع بنجاح في السيرفر!**")
+    except Exception as e:
+        logger.warning(f"⚠️ لم أستطع إرسال رسالة للمطور: {e}")
+
+    logger.info("🚀 النظام يعمل الآن بالكامل. في انتظار الأوامر...")
     await idle()
-# --- END OF FILE bot.py ---
