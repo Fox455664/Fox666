@@ -1,21 +1,23 @@
 from pyrogram import filters, Client
 import asyncio
 from typing import Optional
+from pyrogram import Client, enums
+from random import randint
 from pytgcalls import PyTgCalls, StreamType
-# --- التعديل هنا ---
-from pytgcalls.types import AudioPiped, AudioVideoPiped
+from pytgcalls.types.stream import AudioPiped, AudioVideoPiped
+from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
+from pyrogram.raw.base import GroupCallParticipant
 from pyrogram.raw.functions.channels import GetFullChannel
 from pyrogram.raw.functions.messages import GetFullChat
-from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall
-from pyrogram.raw.types import InputGroupCall, InputPeerChannel, InputPeerChat
+from pyrogram.raw.functions.phone import CreateGroupCall, DiscardGroupCall, EditGroupCallParticipant
+from pyrogram.raw.types import InputGroupCall, InputPeerChannel, InputPeerChat, InputUserSelf
 from pyrogram.types import Message
-from pyrogram.errors import AlreadyJoinedError
-
-# --- Local Imports ---
+from datetime import datetime
+import requests
+import pytz
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
 from CASERr.CASERr import get_channel, devchannel, source, caes
-from random import randint
 
 @Client.on_message(filters.command(["مين في الكول","م ف ك","مين ف الكول","مين ف كول "], ""))
 async def ghsdh_user(client, message):
@@ -38,26 +40,9 @@ async def ghsdh_user(client, message):
       text +=f"{k}➤{user.mention}➤{mut}\n"
      await hh.edit_text(f"{text}")
      await hoss.leave_group_call(message.chat.id)
-    except Exception as e: 
-     # التعامل الآمن مع الأخطاء
-     if "NoActiveGroupCall" in str(e) or "NoActiveGroupCall" in str(type(e)):
-        await message.reply(f"حبيبي الكول مش مفتوح اصلااا\n😜")
-     elif isinstance(e, AlreadyJoinedError):
-         text="😎🥰 الاشخاص المتواجدين في الكول:\n\n"
-         participants = await hoss.get_participants(message.chat.id)
-         k = 0
-         for participant in participants:
-          info = participant
-          if info.muted == False:
-           mut="يتحدث 🗣"
-          else:
-           mut="ساكت 🔕"
-          user = await client.get_users(participant.user_id)
-          k +=1
-          text +=f"{k}➤{user.mention}➤{mut}\n"
-          await hh.edit_text(f"{text}")
-     else:
-        await message.reply(f"ارسل الامر تاني في مشكله في سيرفر التلجرام\n😜")
+    except Exception:
+     # NoActiveGroupCall or others
+     await message.reply(f"حبيبي الكول مش مفتوح اصلااا\n😜")
       
 async def get_group_call(
     client: Client, message: Message, err_message: str = ""
