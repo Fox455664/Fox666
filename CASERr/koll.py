@@ -3,8 +3,12 @@ import asyncio
 from typing import Optional
 from pyrogram import Client, enums
 from random import randint
+
+# === تعديل الاستيرادات للإصدار الجديد 1.1.6 ===
 from pytgcalls import PyTgCalls, StreamType
-from pytgcalls.types.stream import AudioPiped, AudioVideoPiped
+from pytgcalls.types import AudioPiped, AudioVideoPiped
+# ============================================
+
 from pyrogram.errors import ChatAdminRequired, UserAlreadyParticipant, UserNotParticipant
 from pyrogram.raw.base import GroupCallParticipant
 from pyrogram.raw.functions.channels import GetFullChannel
