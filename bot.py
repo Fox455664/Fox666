@@ -4,18 +4,16 @@ from pyrogram import Client, idle
 from pyromod import listen
 from casery import caes, casery, bot_token, bot_token2
 
-# إعداد السجلات لرؤية الأخطاء في Koyeb
+# إعداد السجلات
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
     datefmt="%d-%b-%y %H:%M:%S",
-    handlers=[
-        logging.StreamHandler()
-    ]
+    handlers=[logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
 
-# جلب البيانات
+# جلب المتغيرات من البيئة
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
 
@@ -29,15 +27,16 @@ except ValueError:
     logger.error("❌ API_ID must be an integer!")
     exit(1)
 
-# تعريف الكلاينت (بدون تحميل البلاغنز هنا لتجنب التداخل الدائري)
+# تعريف الكلاينت الأساسي
 bot = Client(
     "CAR",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=bot_token,
-    plugins=dict(root="CASER") # سيتم تحميل البلاغنز عند عمل start
+    plugins=dict(root="CASER")
 )
 
+# الحساب المساعد
 lolo = Client(
     "hossam",
     api_id=API_ID,
@@ -48,12 +47,18 @@ lolo = Client(
 DEVS = caes
 DEVSs = []
 
+# 👈 مهم جدًا: تعريف bot_id كمتغير عام
+bot_id = None
+
 async def start_zombiebot():
+    global bot_id
+
     logger.info("جاري تشغيل البوت الأساسي...")
     try:
         await bot.start()
         me = await bot.get_me()
-        logger.info(f"✅ تم تشغيل البوت: @{me.username}")
+        bot_id = me.id  # ✅ الحل هنا
+        logger.info(f"✅ تم تشغيل البوت: @{me.username} | ID: {bot_id}")
     except Exception as e:
         logger.error(f"❌ فشل تشغيل البوت: {e}")
         return
@@ -64,11 +69,14 @@ async def start_zombiebot():
         user = await lolo.get_me()
         logger.info(f"✅ تم تشغيل المساعد: {user.first_name}")
     except Exception as e:
-        logger.error(f"⚠️ فشل تشغيل الحساب المساعد (تأكد من كود الجلسة): {e}")
+        logger.warning(f"⚠️ فشل تشغيل الحساب المساعد: {e}")
 
     try:
         if casery:
-            await bot.send_message(casery, "**✅ تم تشغيل الصانع بنجاح في السيرفر!**")
+            await bot.send_message(
+                casery,
+                "**✅ تم تشغيل الصانع بنجاح على السيرفر!**"
+            )
     except Exception as e:
         logger.warning(f"⚠️ لم أستطع إرسال رسالة للمطور: {e}")
 
