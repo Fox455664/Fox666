@@ -1,41 +1,28 @@
 import asyncio
 from pyrogram import Client
-from aiohttp import web
+import os
 import sys
+import logging
 from bot import start_zombiebot
 
-# --- وظيفة سيرفر الويب (عشان Koyeb) ---
-async def web_server():
-    async def handle(request):
-        return web.Response(text="Bot is running correctly!")
+# إعداد السجلات
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("Main")
 
-    app = web.Application()
-    app.router.add_get("/", handle)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    # Koyeb بيحتاج البورت 8000
-    site = web.TCPSite(runner, "0.0.0.0", 8000)
-    await site.start()
-    print("✅ Web Server started on port 8000")
-
-# --- وظيفة التشغيل الرئيسية ---
 async def main():
-    # 1. نشغل السيرفر الأول عشان Koyeb ميفصلش البوت
-    await web_server()
-    
-    # 2. نشغل البوت
+    logger.info("Initializing system...")
     try:
         await start_zombiebot()
-        print("✅ Bot started successfully")
     except Exception as e:
-        print(f"❌ Error starting bot: {e}")
-        # لو البوت فشل، منقفلش السكريبت عشان السيرفر يفضل شغال ونشوف اللوج
-        
-    # 3. نفضل مشغلين البوت للأبد
+        logger.error(f"CRITICAL ERROR in main loop: {e}", exc_info=True)
+    
+    logger.info("Service is running. Press Ctrl+C to stop.")
     await asyncio.Event().wait()
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("Bot stopped by user.")
+        logger.info("Bot stopped by user.")
+    except Exception as e:
+        logger.critical(f"Fatal startup error: {e}", exc_info=True)
