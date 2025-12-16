@@ -12,7 +12,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 # 2️⃣ تحديث أدوات بايثون
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 3️⃣ تثبيت المكتبات (تنفيذ فكرتك الذكية: py-tgcalls 1.1.6 مع ntgcalls 1.1.3)
+# 3️⃣ تثبيت المكتبات (إصدارات متوافقة لمنع التعارض)
 RUN pip install --no-cache-dir \
     pyrogram==2.0.106 \
     tgcrypto \
@@ -38,9 +38,12 @@ RUN pip install --no-cache-dir \
     python-dotenv \
     lyricsgenius
 
-# 4️⃣ نسخ الملفات
+# 4️⃣ إعداد متغيرات البيئة لإظهار السجلات فوراً
+ENV PYTHONUNBUFFERED=1
+
+# 5️⃣ نسخ الملفات
 WORKDIR /app
 COPY . .
 
-# 5️⃣ التشغيل
+# 6️⃣ التشغيل مع التأكد من عمل Redis
 CMD redis-server --daemonize yes && python3 main.py
