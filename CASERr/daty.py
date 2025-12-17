@@ -1,4 +1,4 @@
-import asyncio
+  import asyncio
 from pytgcalls import idle
 import os
 import sys
@@ -8,7 +8,12 @@ import redis, re
 from pyrogram import Client
 from pytgcalls import PyTgCalls
 from config import user, dev, call, logger, logger_mode, botname, appp
-from bot import bot_id
+
+# --- التعديل هنا ---
+# تم حذف سطر الاستيراد الخاطئ واستبداله
+# استبدل الرقم 0000000000 بالآيدي الخاص بك (SUDO ID)
+bot_id = 8550161677 
+# -------------------
 
 API_ID = int("8186557")
 API_HASH = "efd77b34c69c164ce158037ff5a0d117"
@@ -108,5 +113,4 @@ async def get_call(bot_username):
      await calo.start()
      call[bot_username] = calo
      return calo
-  return calll  
-  
+  return calll
