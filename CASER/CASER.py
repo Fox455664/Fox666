@@ -24,8 +24,8 @@ r = redis.Redis(
     decode_responses=True
 )
 
-API_ID = int(os.getenv("API_ID", "25761783"))
-API_HASH = os.getenv("API_HASH", "7770de22ee036afb30a99d449c51f4b8")
+API_ID = int(os.getenv("API_ID", "25655555"))
+API_HASH = os.getenv("API_HASH", "57b330d11c2e758e6e3514ffc586bad5")
 Bots = []
 Musi = []
 CASER = [] 
@@ -133,3 +133,4 @@ def get_Bots():
         return []
 
 # باقي الدوال المساعدة في الملف الأصلي (get_users, get_groups, الخ) تبقى كما هي
+
