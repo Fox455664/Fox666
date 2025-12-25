@@ -1925,3 +1925,37 @@ async def upper_backup(client, msg):
                     add_user(chat_id, bot_id)                    
                 await msg.reply("تم رفع نسخه الاشخاص بنجاح ✨♥")
 
+
+
+# -----------------------------------------------------------
+# كود التبليغ عند التشغيل (البوت + المساعد)
+# -----------------------------------------------------------
+import asyncio
+from CASERr.daty import get_userbot
+
+async def send_online_signal():
+    # ننتظر 15 ثانية عشان نتأكد إن البوت والمساعد اتصلوا بالسيرفر
+    await asyncio.sleep(15)
+    
+    try:
+        # 1. رسالة من البوت الرئيسي
+        # (OWNER) هو متغير معرف عندك فوق في الملف بيحمل ايدي المطور
+        await app.send_message(OWNER, "⚡️ **تم تشغيل البوت بنجاح .. أنا جاهز يا مطور!** ✅")
+    except Exception as e:
+        print(f"Error sending bot msg: {e}")
+
+    try:
+        # 2. رسالة من الحساب المساعد
+        bot_username = app.me.username
+        ubot = await get_userbot(bot_username)
+        if ubot:
+            await ubot.send_message(OWNER, "🎸 **الحساب المساعد اتصل بالسيرفر وجاهز للتشغيل** 🎧")
+    except Exception as e:
+        print(f"Error sending userbot msg: {e}")
+
+# تشغيل المهمة في الخلفية
+try:
+    loop = asyncio.get_event_loop()
+    loop.create_task(send_online_signal())
+except:
+    pass
