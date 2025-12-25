@@ -38,8 +38,12 @@ import time
 db = KV('hms.db', 'hms')
 
 r = redis.Redis(
-    host="127.0.0.1",
-    port=6379,)
+    host="ultimate-ferret-48101.upstash.io",
+    port=6379,
+    password="AbvlAAIncDEzYTgwNjBhYTRjNzI0N2NiODZjZGEwY2ZmMmIxOGI2YnAxNDgxMDE",
+    ssl=True,  # مهم جدا عشان الرابط بتاعك فيه --tls
+    decode_responses=True
+)
 
 hamaiaa = {}
 
@@ -3101,4 +3105,5 @@ async def zoharyy(client, message):
 #..........................................   دعوه    ................................................................
 def randCode():
     char = string.ascii_letters + string.digits
+
     return ''.join(random.choice(char) for _ in range(7))
