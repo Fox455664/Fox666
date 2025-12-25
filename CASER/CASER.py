@@ -19,8 +19,10 @@ from config import user as usr, dev, call, logger, appp
 from casery import casery, group, source, photosource, caserid, ch, OWNER
 
 r = redis.Redis(
-    host="127.0.0.1",
+    host="ultimate-ferret-48101.upstash.io",
     port=6379,
+    password="AbvlAAIncDEzYTgwNjBhYTRjNzI0N2NiODZjZGEwY2ZmMmIxOGI2YnAxNDgxMDE",
+    ssl=True,  # مهم جدا عشان الرابط بتاعك فيه --tls
     decode_responses=True
 )
 
@@ -133,5 +135,6 @@ def get_Bots():
         return []
 
 # باقي الدوال المساعدة في الملف الأصلي (get_users, get_groups, الخ) تبقى كما هي
+
 
 
