@@ -8,18 +8,36 @@ from config import user, dev, call, logger
 API_ID = 25761783
 API_HASH = "7770de22ee036afb30a99d449c51f4b8"
 
-# جلب رابط Redis من إعدادات Koyeb
-# ملاحظة: الرابط لازم يبدأ بـ rediss:// (بـ 2 s) عشان Upstash بيستخدم TLS
-REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379")
+# ✅ الرابط المباشر لقاعدة Upstash (تم التعديل هنا)
+# لاحظ: rediss:// بـ 2 s عشان الاتصال الآمن
+UPSTASH_URL = "rediss://default:AbvlAAIncDEzYTgwNjBhYTRjNzI0N2NiODZjZGEwY2ZmMmIxOGI2YnAxNDgxMDE@ultimate-ferret-48101.upstash.io:6379"
+
+# محاولة جلب الرابط من النظام، لو مش موجود نستخدم الرابط المباشر اللي فوق
+REDIS_URL = os.getenv("REDIS_URL", UPSTASH_URL)
 
 try:
-    # الربط بقاعدة البيانات (التلقائي بيشغل SSL لو الرابط فيه rediss)
+    # الاتصال بقاعدة البيانات
     r = redis.from_url(REDIS_URL, decode_responses=False)
-    print("✅ تم الاتصال بقاعدة بيانات Redis بنجاح")
+    # تجربة الاتصال للتأكد
+    r.ping()
+    print(f"✅ تم الاتصال بـ Redis بنجاح: {REDIS_URL.split('@')[1]}")
 except Exception as e:
-    print(f"❌ خطأ في الاتصال بـ Redis: {e}")
-    # خيار احتياطي لو الرابط باظ
-    r = redis.Redis(host="127.0.0.1", port=6379)
+    print(f"❌ فشل الاتصال الأول، جاري المحاولة بالطريقة اليدوية... الخطأ: {e}")
+    try:
+        # محاولة اتصال يدوية (احتياطي)
+        r = redis.Redis(
+            host="ultimate-ferret-48101.upstash.io",
+            port=6379,
+            password="AbvlAAIncDEzYTgwNjBhYTRjNzI0N2NiODZjZGEwY2ZmMmIxOGI2YnAxNDgxMDE",
+            ssl=True,
+            decode_responses=False
+        )
+        r.ping()
+        print("✅ تم الاتصال بـ Redis (الطريقة اليدوية)")
+    except Exception as e2:
+        print(f"❌ فشل الاتصال نهائياً بقاعدة البيانات: {e2}")
+        # هنا بس لو كل حاجة باظت يرجع للمحلي
+        r = redis.Redis(host="127.0.0.1", port=6379, decode_responses=False)
 
 def get_Bots():
     try:
@@ -28,7 +46,8 @@ def get_Bots():
         for a in r.smembers("maker_bots"):
             lst.append(eval(a.decode('utf-8')))
         return lst
-    except:
+    except Exception as e:
+        print(f"Error getting bots: {e}")
         return []
 
 async def get_dev(bot_username):
