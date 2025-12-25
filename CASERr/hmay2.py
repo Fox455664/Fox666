@@ -14,6 +14,7 @@ import sqlite3
 import time
 import datetime
 from pyrogram import Client as client
+from pyrogram.errors import MessageNotModified # تأكد من استيراد هذا الخطأ
 from pyrogram.types import (Message,InlineKeyboardButton,InlineKeyboardMarkup,CallbackQuery,ChatPrivileges)
 from pyrogram import filters, Client
 from pyrogram.enums import ChatMembersFilter
@@ -948,10 +949,15 @@ async def heart(client, query: CallbackQuery):
     else:
         id[usr.id].remove(query.from_user.mention) 
     idd = len(id[usr.id])
-    await query.edit_message_text(
-        f"**╭⎋¦ᚐ𝙽𝙰𝙼𝙴 : {usr.first_name} \n╭⎋ɪᴅᚐ : `{usr.id}`\n╰⊚ᚐᴜsᴇʀᚐ: @{usr.username}\n╰⊚ᚐʙɪᴏᚐ : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh})\n♥ ¦𝙲𝙷𝙰𝚃: {query.message.chat.title}\n♻️ ¦𝙸𝙳.𝙶𝚁𝙾𝚄𝙿 : `{query.message.chat.id}`**",
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{idd} ♥", callback_data=f"heart{usr.id}")]])
-    )
+    try:
+        await query.edit_message_text(
+            f"**╭⎋¦ᚐ𝙽𝙰𝙼𝙴 : {usr.first_name} \n╭⎋ɪᴅᚐ : `{usr.id}`\n╰⊚ᚐᴜsᴇʀᚐ: @{usr.username}\n╰⊚ᚐʙɪᴏᚐ : [ᥴ𝗁ᥲ️ꪀꪀᥱᥣ ᥉᥆υᖇᥴᥱ]({soesh})\n♥ ¦𝙲𝙷𝙰𝚃: {query.message.chat.title}\n♻️ ¦𝙸𝙳.𝙶𝚁𝙾𝚄𝙿 : `{query.message.chat.id}`**",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{idd} ♥", callback_data=f"heart{usr.id}")]])
+        )
+    except MessageNotModified:
+        pass # تجاهل الخطأ إذا كانت الرسالة مطابقة
+
+
     #..........................................       الايدي    ...............................................................
 #............................................ اكس او ...........................................................................    
 board = ["⬜️"] * 9
