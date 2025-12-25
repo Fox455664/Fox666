@@ -1,3 +1,4 @@
+
 import asyncio
 import requests
 import random
@@ -60,6 +61,7 @@ from casery import ch as chh
 from casery import caes, casery, group, source, photosource, caserid, OWNER, muusiic, suorce 
       
 name = f"{OWNER}"
+src = [] # قائمة لتخزين الجروبات التي عطلت التسلية
 
 @Client.on_message(filters.text, group=557645456)
 async def coderady(client, message):
@@ -69,7 +71,6 @@ async def coderady(client, message):
             target = parts[1].strip().split()[0]  
             await message.reply_text(f"**`{target}`**")                
       
-
 
 @Client.on_message(filters.command(["قفل التسليه","تعطيل التسليه"], ""), group=258073) 
 async def fffcaesar(client, message):
@@ -102,7 +103,6 @@ async def caesarrf(client, message):
        return await message.reply_text("تم فتح التسليه بنجاح ✅🔓")
     else:
        return await message.reply_text(f"عزرا عزيزي{message.from_user.mention}\n هذا الامر لا يخصك✨♥")
-
 
 
 @Client.on_message(filters.command(["غنيلي","غني","• غنيلي •","غنيي","• اغاني •","اغاني"], ""), group=759363)
@@ -1558,6 +1558,10 @@ async def rf3akhoia(client, message):
      return
     if message.chat.id in src:
       return
+    
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
+
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1573,6 +1577,10 @@ async def tnzel_akhoia(client, message):
      return
     if message.chat.id in src:
       return
+    
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
+
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1605,6 +1613,8 @@ async def rf3aalgdan(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1620,6 +1630,8 @@ async def tnzel_algdan(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1652,6 +1664,8 @@ async def rf3o1kh1ty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1667,6 +1681,8 @@ async def tnzel_o1kh1ty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1699,6 +1715,8 @@ async def rf3ban1aty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id not in ban1aty:
         ban1aty[user_id] = [] 
@@ -1712,6 +1730,8 @@ async def tnzel_ban1aty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in ban1aty and reply_name in ban1aty[user_id]:
         ban1aty[user_id].remove(reply_name)
@@ -1742,6 +1762,8 @@ async def rf3mrataty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1757,6 +1779,8 @@ async def tnzel_mrataty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1789,6 +1813,8 @@ async def rf3zogaty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1804,6 +1830,8 @@ async def tnzel_zogaty(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1836,6 +1864,8 @@ async def rf3ab1nay(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1851,6 +1881,8 @@ async def tnzel_ab1nay(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1883,6 +1915,8 @@ async def rf3agb1iaa(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1898,6 +1932,8 @@ async def tnzel_agb1iaa(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1930,6 +1966,8 @@ async def rf3alh1obl(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1945,6 +1983,8 @@ async def tnzel_alh1obl(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1977,6 +2017,8 @@ async def rf3nmla(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -1992,6 +2034,8 @@ async def tnzel_nmla(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2024,6 +2068,8 @@ async def rf3sorsar(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2039,6 +2085,8 @@ async def tnzel_sorsar(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2071,6 +2119,8 @@ async def rf3mon1key(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2086,6 +2136,8 @@ async def tnzel_mon1key(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in mon1key and reply_name in mon1key[user_id]:
         mon1key[user_id].remove(reply_name)
@@ -2116,6 +2168,8 @@ async def rf3alhamer(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2131,6 +2185,8 @@ async def tnzel_alhamer(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in alhamer and reply_name in alhamer[user_id]:
         alhamer[user_id].remove(reply_name)
@@ -2161,6 +2217,8 @@ async def rf3pi2356g(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2176,6 +2234,8 @@ async def tnzel_pi2356g(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in pi2356g and reply_name in pi2356g[user_id]:
         pi2356g[user_id].remove(reply_name)
@@ -2206,6 +2266,8 @@ async def rf3hu368rry(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2221,6 +2283,8 @@ async def tnzel_hu368rry(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2253,6 +2317,8 @@ async def rf3do467g(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2268,6 +2334,8 @@ async def tnzel_do467g(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2300,6 +2368,8 @@ async def rf3she578ep(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2315,6 +2385,8 @@ async def tnzel_she578ep(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2347,6 +2419,8 @@ async def rf3buf689falo(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2362,6 +2436,8 @@ async def tnzel_buf689falo(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2394,6 +2470,8 @@ async def rf3yuseaf(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2409,6 +2487,8 @@ async def tnzel_yuseaf(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in yuseaf and reply_name in yuseaf[user_id]:
         yuseaf[user_id].remove(reply_name)
@@ -2439,6 +2519,8 @@ async def rf3harfosh(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2454,6 +2536,8 @@ async def tnzel_harfosh(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in harfosh and reply_name in harfosh[user_id]:
         harfosh[user_id].remove(reply_name)
@@ -2484,6 +2568,8 @@ async def rf3alhadedy(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     reply_name = message.reply_to_message.from_user.mention
     
     if user_id not in alhadedy:
@@ -2499,6 +2585,8 @@ async def tnzel_alhadedy(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id in alhadedy and reply_name in alhadedy[user_id]:
         alhadedy[user_id].remove(reply_name)
@@ -2529,6 +2617,8 @@ async def rf3almutamard(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     reply_name = message.reply_to_message.from_user.mention   
     if user_id not in almutamard:
         almutamard[user_id] = [] 
@@ -2542,6 +2632,8 @@ async def tnzel_almutamard(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     reply_name = message.reply_to_message.from_user.mention  
     if user_id in almutamard and reply_name in almutamard[user_id]:
         almutamard[user_id].remove(reply_name)
@@ -2572,6 +2664,8 @@ async def rf3aldayous(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2587,6 +2681,8 @@ async def tnzel_aldayous(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2619,6 +2715,8 @@ async def rf3far1edaa(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لرفعه.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2634,6 +2732,8 @@ async def tnzel_far1edaa(client, message):
      return
     if message.chat.id in src:
       return
+    if not message.reply_to_message:
+        return await message.reply_text("يجب عليك الرد على رسالة الشخص لتنزيله.")
     if message.reply_to_message.from_user.username in caes:
        return await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")    
     reply_name = message.reply_to_message.from_user.mention    
@@ -2657,3 +2757,4 @@ async def far1edaa_list(client, message):
         await message.reply_text("انت مش رافع حد  شاذ  اصلا")
 
 #..........................................    شاذ        ................................................................
+```
