@@ -69,7 +69,7 @@ async def coderady(client, message):
             target = parts[1].strip().split()[0]  
             await message.reply_text(f"**`{target}`**")                
       
-src = []
+
 
 @Client.on_message(filters.command(["قفل التسليه","تعطيل التسليه"], ""), group=258073) 
 async def fffcaesar(client, message):
@@ -103,76 +103,6 @@ async def caesarrf(client, message):
     else:
        return await message.reply_text(f"عزرا عزيزي{message.from_user.mention}\n هذا الامر لا يخصك✨♥")
 
-@Client.on_message(filters.command(["قتل","تخ"], ""), group=1025934)
-async def ceev(client, message):
-    bot_username = client.me.username
-    OWNER_ID = await get_dev(bot_username)
-    if await johned(client, message):
-     return
-    if message.chat.id in src:
-      return
-    if message.reply_to_message.from_user.username in caes:
-        await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")
-    else:
-        caesar = await client.get_chat(message.from_user.id)
-        CASER = caesar.username
-        usr = await client.get_users(message.reply_to_message.from_user.id)
-        name = usr.username
-        user_id = message.reply_to_message.from_user.id
-        chat_id = message.chat.id
-        await message.reply_video(
-          video="https://telegra.ph/file/a2c9fa6de45e0fc4fc81e.mp4",
-          caption=f"• تم قتل هذا الشخص @{name}\n\n※ بواسطة @{CASER}\n\n ان لله وان اليه راجعون ⚰😭",
-          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("المقتول ⚰??", url=f"https://t.me/{name}"), 
-                                ],[InlineKeyboardButton("القاتل 👿🔪", url=f"https://t.me/{CASER}"), 
-                                ],[InlineKeyboardButton("ضيفني في جروب والنبي🥺♥", url=f"https://t.me/{bot_username}?startgroup=tru")]]))
-                                
-@Client.on_message(filters.command(["بوسه","مح"], ""), group=1025554)
-async def cee6v(client, message):
-    bot_username = client.me.username
-    OWNER_ID = await get_dev(bot_username)
-    if await johned(client, message):
-     return
-    if message.chat.id in src:
-      return
-    else:
-        caesar = await client.get_chat(message.from_user.id)
-        CASER = caesar.username
-        usr = await client.get_users(message.reply_to_message.from_user.id)
-        name = usr.username
-        user_id = message.reply_to_message.from_user.id
-        chat_id = message.chat.id
-        await message.reply_video(
-          video="https://telegra.ph/file/f9fca108067895e042f1f.mp4",
-          caption=f"••القميل هذا ✨♥ @{CASER}\n\n※ بعتلك بوسه يا 😘♥ @{name} \n\n عيب كده اي المحن ده 😹",
-          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("المقبول 👻??", url=f"https://t.me/{name}"), 
-                                ],[InlineKeyboardButton("القابل 😘🥹", url=f"https://t.me/{CASER}"), 
-                                ],[InlineKeyboardButton("ضيفني في جروب والنبي🥺♥", url=f"https://t.me/{bot_username}?startgroup=tru")]]))         
-
-
-@Client.on_message(filters.command(["تفو","تف"], ""), group=105524)
-async def ceev55(client, message):
-    bot_username = client.me.username
-    OWNER_ID = await get_dev(bot_username)
-    if await johned(client, message):
-     return
-    if message.chat.id in src:
-      return
-    if message.reply_to_message.from_user.username in caes:
-        await message.reply_text("• عذرآ لا تستطيع استخدام الأمر على مطور السورس")
-    else:
-        caesar = await client.get_chat(message.from_user.id)
-        CASER = caesar.username
-        usr = await client.get_users(message.reply_to_message.from_user.id)
-        name = usr.username
-        user_id = message.reply_to_message.from_user.id
-        chat_id = message.chat.id
-        await message.reply_video(
-          video="https://telegra.ph/file/7f4c6eebf2f23b41dea45.mp4",
-          caption=f"• تم التف علي هذا الشخص @{name}\n\n※ بواسطة @{CASER} \n\n اععع اي القرف ده 🤢",
-          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("المتفوف عليه😂💔", url=f"https://t.me/{name}"), 
-                                ],[InlineKeyboardButton("التافف 😂👻", url=f"https://t.me/{CASER}"), 
-                                ],[InlineKeyboardButton("ضيفني في جروب والنبي🥺♥", url=f"https://t.me/{bot_username}?startgroup=tru")]]))              
 
 
 @Client.on_message(filters.command(["غنيلي","غني","• غنيلي •","غنيي","• اغاني •","اغاني"], ""), group=759363)
@@ -2725,4 +2655,5 @@ async def far1edaa_list(client, message):
         await message.reply_text(nq)    
     else:
         await message.reply_text("انت مش رافع حد  شاذ  اصلا")
+
 #..........................................    شاذ        ................................................................
