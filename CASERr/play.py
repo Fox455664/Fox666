@@ -301,13 +301,7 @@ async def join_call(bot_username, OWNER_ID, client, message, audio_file, group_i
         print(e)    
     return Done
     
-async def Call(bot_username):
-    hoss = await get_call(bot_username)
-    @hoss.on_stream_end()
-    async def stream_end_handler1(client, update: Update):
-        if not isinstance(update, StreamAudioEnded):
-            return        
-        await change_stream(bot_username, update.chat_id, client)
+
 
 async def change_stream(bot_username, chat_id, client): 
     hoss = await get_call(bot_username)    
