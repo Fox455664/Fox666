@@ -1,24 +1,3 @@
-# ----------------- بداية الملف -----------------
-# 1. الاستدعاءات الضرورية فقط لدالة Call
-from pytgcalls.types import Update, StreamAudioEnded
-from CASERr.daty import get_call
-
-# 2. تعريف دالة Call فوراً في بداية الملف (لحل مشكلة الاستيراد)
-async def Call(bot_username):
-    hoss = await get_call(bot_username)
-    
-    @hoss.on_stream_end()
-    async def stream_end_handler(client, update: Update):
-        if not isinstance(update, StreamAudioEnded):
-            return
-        try:
-            # استدعاء داخلي لتجنب المشاكل
-            from CASERr.play import change_stream
-            await change_stream(bot_username, update.chat_id, client)
-        except Exception as e:
-            print(e)
-
-# ----------------- باقي الاستدعاءات -----------------
 from pyrogram import Client, filters
 from youtubesearchpython.__future__ import VideosSearch 
 import os
@@ -54,15 +33,14 @@ import numpy as np
 from yt_dlp import YoutubeDL
 from pytube import YouTube
 from config import user, dev, call, logger, logger_mode, botname, appp
-from CASERr.daty import get_userbot, get_dev, get_logger, del_userbot, del_call
+from CASERr.daty import get_call, get_userbot, get_dev, get_logger, del_userbot, del_call
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 from CASERr.CASERr import get_channel, devchannel, source, caes, devgroup, devuser, group, casery, johned, photosource, muusiic, suorce
 from io import BytesIO
 import aiofiles
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from unidecode import unidecode
 import re
-
-# ----------------- باقي دوال الملف -----------------
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
