@@ -680,7 +680,7 @@ async def enable_photo_reply(client, message):
   if message.from_user.id == OWNER_ID :
     if bot_username not in photo_responses:
         photo_responses[bot_username] = False
-    if not photo_responses[bot_username]:
+    if not photo_responses.get(bot_username, False):
         photo_responses[bot_username] = True
         return await message.reply_text("تم تفعيل رد البوت بالصورة✅🥰")
     else:
@@ -691,7 +691,7 @@ async def caesa57648r_bot(client, message):
     bot_username = client.me.username
     bot_id = client.me.id
     me = names.get(bot_username) if names.get(bot_username) else f"{name}"
-    if not photo_responses[bot_username]:
+    if not photo_responses.get(bot_username, False):
         bar = random.choice(bot_responses).format(name=me)
         bot_username = client.me.username
         await message.reply_text(text=f"**[{bar}](https://t.me/{bot_username}?startgroup=True)**", disable_web_page_preview=True)
@@ -713,7 +713,7 @@ async def respond_to_caesar(client, message):
     bot_id = client.me.id
     me = names.get(bot_username) if names.get(bot_username) else f"{name}"
     if me in message.text:     
-        if not photo_responses[bot_username]:
+        if not photo_responses.get(bot_username, False):
             bar = random.choice(caesar_responses).format(name=me)
             await message.reply_text(text=f"**[{bar}](https://t.me/{bot_username}?startgroup=True)**", disable_web_page_preview=True)
         else:
@@ -1959,3 +1959,4 @@ try:
     loop.create_task(send_online_signal())
 except:
     pass
+
