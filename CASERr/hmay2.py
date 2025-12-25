@@ -14,7 +14,6 @@ import sqlite3
 import time
 import datetime
 from pyrogram import Client as client
-from pyrogram.errors import MessageNotModified # تأكد من استيراد هذا الخطأ
 from pyrogram.types import (Message,InlineKeyboardButton,InlineKeyboardMarkup,CallbackQuery,ChatPrivileges)
 from pyrogram import filters, Client
 from pyrogram.enums import ChatMembersFilter
@@ -26,7 +25,7 @@ from dotenv import load_dotenv
 from os import getenv
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from pyrogram.types import *
-from pyrogram.errors import PeerIdInvalid
+from pyrogram.errors import PeerIdInvalid, MessageNotModified # تم اضافة MessageNotModified
 import aiohttp
 from datetime import datetime, timedelta
 from random import choice
@@ -65,6 +64,7 @@ from pyrogram.enums import ParseMode
 from math import sqrt
 from typing import Union
 from CASERr.CASERr import caserid
+
 #...........................................  زواج  ...........................................................................    
 users_db = {}
 
@@ -955,9 +955,7 @@ async def heart(client, query: CallbackQuery):
             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"{idd} ♥", callback_data=f"heart{usr.id}")]])
         )
     except MessageNotModified:
-        pass # تجاهل الخطأ إذا كانت الرسالة مطابقة
-
-
+        pass
     #..........................................       الايدي    ...............................................................
 #............................................ اكس او ...........................................................................    
 board = ["⬜️"] * 9
@@ -1774,7 +1772,7 @@ async def top_m659oney(client, message):
     
     await message.reply_text(response)
     
-@Client.on_message(filters.command(["البنك","بنك راضي","❤️‍🔥بنك راضي", "بنك"], ""), group=73)
+@Client.on_message(filters.command(["البنك","بنك fox","❤️‍🔥بنك fox", "بنك"], ""), group=73)
 async def mmmezat(client, message):
         bot_username = client.me.username
         soesh = devchannel.get(bot_username) if devchannel.get(bot_username) else f"{source}"
@@ -1796,7 +1794,7 @@ async def mmmezat(client, message):
 🤑╢ `فلوسي` «» اموالي
 💸╢ `فلوسه` «» امواله ❬ بالرد علي الشخص ❭
 🏦╢ `بنكي` «» حسابي
-💰╢ `بنكه` «» حسابه ❬ بالرد علي الشخص ❭
+💰╢ `بنكه` «» حسابي ❬ بالرد علي الشخص ❭
 ♻️╢ `تحويل` + المبلغ
 ☠️╢ `كنز`
 🤖╢ `استثمار` + المبلغ
@@ -2065,4 +2063,5 @@ async def tr3hib(client, message):
         return await message.reply_text("تم فتح الترحيب بنجاح ✅🔓")
     else:
         return await message.reply_text(f"عزرا عزيزي {message.from_user.mention}\n هذا الامر لا يخصك✨♥")
-#............................................ الترحيب ...........................................................................         
+#............................................ الترحيب ...........................................................................
+```
