@@ -11,7 +11,7 @@ from pyrogram.errors import UserNotParticipant
 
 # استيراد البوت والمتغيرات
 from bot import bot as app, lolo, DEVS, DEVSs
-from CASERr.play import Call
+from CASERr.calls import Call
 from CASERr.hossam import mutegdv2d
 from CASERr.CASERr import photo_responses
 from CASERr.azan import azan, azkar_chatt, nday_catt
@@ -133,4 +133,5 @@ def get_Bots():
         return []
 
 # باقي الدوال المساعدة في الملف الأصلي (get_users, get_groups, الخ) تبقى كما هي
+
 
