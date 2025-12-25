@@ -10,8 +10,6 @@ async def Call(bot_username):
             return
 
         try:
-            # استدعاء دالة التغيير من ملف التشغيل
-            # الاستيراد هنا داخلي عشان نمنع أي مشاكل
             from CASERr.play import change_stream
             await change_stream(bot_username, update.chat_id, client)
         except Exception as e:
