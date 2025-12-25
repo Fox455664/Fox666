@@ -41,8 +41,12 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 name = f"{OWNER}"
 
 r = redis.Redis(
-    host="127.0.0.1",
-    port=6379,)
+    host="ultimate-ferret-48101.upstash.io",
+    port=6379,
+    password="AbvlAAIncDEzYTgwNjBhYTRjNzI0N2NiODZjZGEwY2ZmMmIxOGI2YnAxNDgxMDE",
+    ssl=True,  # مهم جدا عشان الرابط بتاعك فيه --tls
+    decode_responses=True
+)
 
 
 Keyard = ReplyKeyboardMarkup(
@@ -1920,3 +1924,4 @@ async def upper_backup(client, msg):
                     chat_id = int(line)
                     add_user(chat_id, bot_id)                    
                 await msg.reply("تم رفع نسخه الاشخاص بنجاح ✨♥")
+
