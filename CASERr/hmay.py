@@ -1370,8 +1370,15 @@ async def delete_sappp(client, message):
     if message.from_user.id == OWNER_ID or message.from_user.username in caes:
         return
 
-    chat_member = await client.get_chat_member(message.chat.id, message.from_user.id)   
-    if chat_member.status == ChatMemberStatus.OWNER:  
+    # التحقق من نوع المحادثة أولاً لتجنب الخطأ في الخاص
+    if message.chat.type == enums.ChatType.PRIVATE:
+        return
+
+    try:
+        chat_member = await client.get_chat_member(message.chat.id, message.from_user.id)   
+        if chat_member.status == ChatMemberStatus.OWNER:  
+            return
+    except Exception:
         return
 
     for x in get_sappp(bot_username):
