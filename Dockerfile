@@ -10,7 +10,9 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
+# تم إضافة httpx==0.24.1 في البداية لحل مشكلة البحث
 RUN pip install --no-cache-dir \
+    httpx==0.24.1 \
     pyrogram==2.0.106 \
     tgcrypto \
     ntgcalls==1.1.3 \
