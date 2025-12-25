@@ -17,10 +17,12 @@ from casery import caserid
 # Make sure your Redis server is running
 try:
     r = redis.Redis(
-        host="127.0.0.1",
-        port=6379,
-        decode_responses=True
-    )
+    host="ultimate-ferret-48101.upstash.io",
+    port=6379,
+    password="AbvlAAIncDEzYTgwNjBhYTRjNzI0N2NiODZjZGEwY2ZmMmIxOGI2YnAxNDgxMDE",
+    ssl=True,  # مهم جدا عشان الرابط بتاعك فيه --tls
+    decode_responses=True
+)
 except redis.exceptions.ConnectionError:
     print("Redis connection failed. Please ensure Redis server is running.")
     exit(1)
@@ -207,5 +209,6 @@ async def for_owner(client, m):
 
 # ... And the rest of the original file, with all handlers and logic,
 # but corrected to use the bot_id for data isolation.
+
 
 # --- END OF FILE CASERr/CASERr.py ---
