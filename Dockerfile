@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir \
     ntgcalls==1.1.3 \
     py-tgcalls==1.1.6 \
     yt-dlp \
-    youtube-search-python \
+    youtube-search-python==1.6.6 \
     youtube-search \
     aiohttp \
     Pillow \
