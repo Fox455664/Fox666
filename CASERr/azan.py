@@ -15,8 +15,7 @@ import random
 from config import *
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
-from CASERr.CASERr import get_channel, devchannel, source, caes, devgroup, devuser, group, casery, johned, photosource, caserid
-
+from CASERr.CASERr import devchannel, source, caes, devgroup, devuser, group, casery, johned, photosource, caserid
 # === تعديل الاستيرادات للإصدار الجديد 1.1.6 ===
 from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types import AudioPiped, AudioVideoPiped
