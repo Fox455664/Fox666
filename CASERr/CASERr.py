@@ -479,3 +479,6 @@ try:
     loop.create_task(send_online_signal())
 except:
     pass
+def get_channel(bot_username):
+    # كود افتراضي لتجنب الخطأ
+    return source
