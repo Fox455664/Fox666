@@ -60,7 +60,7 @@ async def start_zombiebot():
         await bot.start()
         
         # 🔥 مسح أي رابط قديم (الخطوة الأهم)
-        await bot.delete_webhook()
+        
         
         me = await bot.get_me()
         print(f"✅ تم الاتصال بنجاح!")
