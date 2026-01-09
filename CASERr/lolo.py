@@ -1,4 +1,3 @@
-
 import asyncio
 import requests
 import random
@@ -2757,4 +2756,5 @@ async def far1edaa_list(client, message):
         await message.reply_text("انت مش رافع حد  شاذ  اصلا")
 
 #..........................................    شاذ        ................................................................
-```
+
+
