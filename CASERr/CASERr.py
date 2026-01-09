@@ -36,6 +36,7 @@ casery = "f_o_x_351"
 suorce = "SOURCE Titanx"
 source = "https://t.me/fox68899"
 ch = "fox68899"
+group = "fox68899" # ✅ تم إضافة 
 photosource = "https://envs.sh/ws4.webp"
 muusiic = "M" 
 caes = [casery, "fox68899"] # قائمة المطورين
@@ -530,3 +531,4 @@ try:
     loop.create_task(send_online_signal())
 except:
     pass
+
