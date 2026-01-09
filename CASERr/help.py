@@ -22,7 +22,7 @@ from pyrogram.types import Chat, User
 from config import *
 from config import user, dev, call, logger, logger_mode, botname, appp
 from CASERr.daty import get_call, get_userbot, get_dev, get_logger
-from CASERr.CASERr import get_channel, devchannel, source, caes, johned
+from .CASERr import get_channel, devchannel, source, caes, johned
 #............................................ المساعد  ...........................................................................    
 @Client.on_message(filters.command("فحص المساعد", ""), group=5865)
 async def userrrrr(client: Client, message):
@@ -272,3 +272,4 @@ async def handle_message(client, message):
         await user.send_reaction(chat_id, message_id, f"{T}")
     except Exception as e:
         print(f"حدث خطأ أثناء الانضمام: {str(e)}")
+
