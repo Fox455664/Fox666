@@ -3,9 +3,8 @@ import os
 import redis
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup)
-from pyrogram import filters, Client
+from pyrogram import filters, Client, enums
 from pyrogram.errors import UserNotParticipant
-from pyrogram import enums
 
 # استيراد الإعدادات
 try:
@@ -41,6 +40,22 @@ Keyard = ReplyKeyboardMarkup(
     [[("• زخرفه •")],[("• صراحه •"),("• تويت •")],[("• انصحني •"),("• لو خيروك •")],[("• حروف •"),("• امثله •")],[("• نكته •"),("• احكام •")],[("• قران •"),("• ازكار •")],[("• صور •")],[("• صور شباب •"),("• صور بنات •")],[("• انمي •"),("• استوري •")],[("• اغاني •")],[("• ممثلين •"),("• مغنين •")],[("• مشاهير •"),("• لاعبين •")],[("• اعلام •"),("• افلام •")],[("• لغز •"),("• مختلف •")],[("مطور البوت"),("مطور السورس")],[("السورس")],[("/start")]],
     resize_keyboard=True
 )
+
+# ==========================================
+# ✅ الدالة المفقودة (تمت إضافتها لحل المشكلة)
+# ==========================================
+async def get_channel(message):
+    """دالة لجلب بيانات القناة لتجنب خطأ ImportError"""
+    try:
+        # لو الرسالة جاية من قناة مباشرة
+        if message.chat.type == enums.ChatType.CHANNEL:
+            return message.chat
+        # لو الرسالة محولة من قناة
+        if message.forward_from_chat and message.forward_from_chat.type == enums.ChatType.CHANNEL:
+            return message.forward_from_chat
+    except Exception:
+        pass
+    return None
 
 # ✅ دوال الفحص (معدلة لتجنب التهنيج)
 async def johCASER(client, message):
