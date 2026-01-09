@@ -45,12 +45,12 @@ photosource = "https://envs.sh/ws4.webp"
 # ⬆️⬆️⬆️ نهاية بياناتك ⬆️⬆️⬆️
 # =========================================================
 
-# --- حل مشكلة الاستيراد (Mapping Variables) ---
+# --- حل مشكلة الاستيراد ---
 devchannel = source      # قناة السورس
 devgroup = group         # جروب الدعم
 devuser = casery         # يوزر المطور
 name = f"{OWNER_NAME}"   # الاسم المعروض
-devphots = photosource   # ✅ حل مشكلة devphots
+devphots = photosource   # الصورة
 
 # --- الاتصال بقاعدة البيانات (Upstash Redis) ---
 try:
@@ -131,6 +131,10 @@ def get_groups(bot_id):
 
 # --- دالة الاشتراك الإجباري ---
 async def johned(client, message):
+    # ✅ استثناء المطور من الاشتراك الإجباري
+    if message.from_user.id == caserid:
+        return False
+
     try:
         user_status = await client.get_chat_member(ch, message.from_user.id)
         if user_status.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.LEFT]:
@@ -153,6 +157,7 @@ async def johned(client, message):
         return True 
         
     except Exception:
+        # في حالة وجود أي خطأ آخر (مثل البوت ليس مشرفاً)، اسمح بالمرور
         return False
 
 # --- دالة جلب قناة السورس ---
@@ -216,7 +221,8 @@ async def gen_ot(app, bot_username, bot_id):
 
 # ================= كود Start =================
 
-@Client.on_message(filters.command(["/start", "رجوع"], "") & filters.private, group=1267686)
+# ✅ تم تغيير رقم المجموعة (Group) من 1267686 إلى 1 لضمان استجابة البوت
+@Client.on_message(filters.command(["/start", "رجوع"], "") & filters.private, group=1)
 async def for_us65ers(client, message):
     # 1. التحقق من الحظر
     if await johCASER(client, message): return
