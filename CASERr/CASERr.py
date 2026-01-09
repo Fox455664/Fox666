@@ -285,21 +285,37 @@ async def for_us65ers(client, message):
         add_user(message.from_user.id, bot_id)
 
 # ================= Startup Log =================
+# استيراد البوت الأساسي من ملف bot (تأكد من اسم الملف والكائن)
+from bot import bot as main_bot
+
 async def send_online_signal():
-    await asyncio.sleep(10)
+    # ننتظر قليلاً للتأكد من اتصال البوت بالخادم
+    await asyncio.sleep(15)
     try:
-        bot_username = appp.me.username
+        # الحصول على معلومات البوت الأساسي
+        me = await main_bot.get_me()
+        bot_username = me.username
+        
+        # جلب أيدي المطور
         OWNER_ID = await get_dev(bot_username)
+        
         msg = f"""
-✅ تم تشغيل البوت بنجاح
-🤖 @{bot_username}
-🕒 {datetime.datetime.now().strftime('%I:%M %p')}
+✅ **تم تشغيل البوت بنجاح**
+
+🤖 **يوزر البوت:** @{bot_username}
+🆔 **أيدي المطور:** `{OWNER_ID}`
+🕒 **الوقت:** {datetime.now().strftime('%I:%M %p')}
+
+🚀 السورس يعمل الآن بالكامل!
 """
-        await appp.send_message(OWNER_ID, msg)
-    except:
-        pass
+        # الإرسال باستخدام main_bot وليس appp
+        await main_bot.send_message(OWNER_ID, msg)
+        print(f"✅ Startup message sent to {OWNER_ID}")
+        
+    except Exception as e:
+        # طباعة الخطأ لمعرفة السبب في حال فشل الإرسال
+        print(f"❌ Error in send_online_signal: {e}")
 
-asyncio.get_event_loop().create_task(send_online_signal())
+# تشغيل المهمة في الخلفية
+asyncio.create_task(send_online_signal())
 
-def get_channel(bot_username):
-    return source
