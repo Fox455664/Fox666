@@ -1,7 +1,7 @@
 import asyncio
 import os
 import logging
-from pyrogram import Client, idle
+from pyrogram import Client, idle, filters
 from pyrogram.enums import ParseMode
 
 # إعدادات اللوج
@@ -23,7 +23,7 @@ except ImportError:
     API_ID = int(os.getenv("API_ID", "24722068"))
     API_HASH = os.getenv("API_HASH", "72feca3ed88891eeff3852e20817cdca")
 
-# تعريف الكلاينتات (Global)
+# تعريف الكلاينتات
 bot = Client(
     "CASERr_Bot",
     api_id=API_ID,
@@ -41,15 +41,31 @@ assistant = Client(
     in_memory=True
 )
 
-# ✅ هذه هي الدالة المفقودة التي يبحث عنها main.py
+# ==========================================
+# 🕵️ جاسوس النظام (لاختبار الاتصال فقط)
+# ==========================================
+@bot.on_message(filters.all, group=-1000)
+async def system_spy(client, message):
+    user_info = f"@{message.from_user.username}" if message.from_user.username else f"{message.from_user.id}"
+    print(f"🕵️ [SPY EVENT] وصلت رسالة من {user_info}: {message.text}")
+    # لن نوقف الرسالة هنا، سنجعلها تمر لبقية الأوامر
+    message.continue_propagation()
+
+# ✅ الدالة الرئيسية للتشغيل
 async def start_zombiebot():
-    print("🚀 جاري تشغيل نظام القيصر (ZombieBot Mode)...")
+    print("🚀 جاري بدء عملية تشغيل نظام القيصر...")
 
     # 1. تشغيل البوت
     try:
         await bot.start()
+        
+        # 🔥 مسح أي رابط قديم (الخطوة الأهم)
+        await bot.delete_webhook()
+        
         me = await bot.get_me()
-        print(f"✅ تم تشغيل البوت: @{me.username}")
+        print(f"✅ تم الاتصال بنجاح!")
+        print(f"🤖 يوزر البوت: @{me.username}")
+        print(f"🆔 ايدي البوت: {me.id}")
     except Exception as e:
         print(f"❌ فشل تشغيل البوت: {e}")
         return
@@ -67,17 +83,18 @@ async def start_zombiebot():
     try:
         await bot.send_message(
             chat_id=caserid,
-            text=f"✅ **تم تشغيل السورس بنجاح!**\n\n🤖 **البوت:** @{me.username}\n📡 **النظام:** متصل مع Server"
+            text=f"✅ **نظام القيصر استيقظ الآن!**\n\n🤖 البوت: @{me.username}\n🛠 المطور: [اضغط هنا](tg://user?id={caserid})"
         )
-    except:
-        pass
+        print(f"🔔 تم إرسال إشعار التشغيل للمطور ({caserid})")
+    except Exception as e:
+        print(f"⚠️ لم أتمكن من إرسال رسالة للمطور: {e}")
 
-    print("✅ السورس يعمل الآن بكفاءة...")
+    print("📡 البوت الآن في وضع الاستماع للرسائل (Idle Mode)...")
     
-    # 4. وضع الخمول (مهم جداً)
+    # 4. الحفاظ على البوت يعمل
     await idle()
     
-    # 5. الإغلاق
+    # 5. الإغلاق الآمن
     await bot.stop()
     if bot_token2:
         await assistant.stop()
