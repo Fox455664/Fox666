@@ -50,9 +50,7 @@ devchannel = source      # قناة السورس
 devgroup = group         # جروب الدعم
 devuser = casery         # يوزر المطور
 name = f"{OWNER_NAME}"   # الاسم المعروض
-
-# ✅✅✅ هنا حل المشكلة (إضافة devphots) ✅✅✅
-devphots = photosource   # تعريف المتغير المفقود
+devphots = photosource   # ✅ حل مشكلة devphots
 
 # --- الاتصال بقاعدة البيانات (Upstash Redis) ---
 try:
@@ -285,4 +283,18 @@ async def send_online_signal():
         TARGET_ID = caserid 
         
         msg = f"""
-✅ **تم تشغيل سورس {suorce} بنج
+✅ **تم تشغيل سورس {suorce} بنجاح**
+
+🤖 البوت: @{me.username}
+🆔 المطور: `{TARGET_ID}`
+📢 قناة الاشتراك: @{ch}
+
+🚀 السورس يعمل الآن بكفاءة!
+✅ تم الاتصال بقاعدة البيانات Redis
+"""
+        await main_bot.send_message(TARGET_ID, msg)
+        print("✅ Startup Signal Sent.")
+    except Exception as e:
+        print(f"Startup Signal Note: {e}")
+
+asyncio.create_task(send_online_signal())
