@@ -15,7 +15,7 @@ except ImportError:
     pass
 
 # ================= بيانات السورس =================
-caes = ["f_o_x_351", "zozooryy", "cyv0we"]
+caes = ["f_o_x_351", "", "cyv0we"]
 casery = "f_o_x_351"
 caserid = 7669264153
 OWNER_NAME = "النسور"
@@ -77,6 +77,10 @@ def add_user(user_id, bot_id):
 def is_user(user_id, bot_id):
     if r: return r.sismember(f"USERS{bot_id}", user_id)
     return False
+
+# ✅ الدالة المفقودة (تمت إضافتها هنا)
+def get_channel(bot_username):
+    return source
 
 # دالة الحظر
 async def johCASER(client, message):
@@ -140,7 +144,6 @@ async def gen_ot(app, bot_username, bot_id):
     return photosource
 
 # ================= أمر Start =================
-# ✅ التعديل هنا: group=0 وفلتر صحيح
 @Client.on_message(filters.command(["start", "رجوع"]) & filters.private, group=0)
 async def start_handler(client, message):
     if await johCASER(client, message): return
