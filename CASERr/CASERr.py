@@ -61,7 +61,6 @@ try:
         ssl=True,
         decode_responses=True
     )
-    # r.ping()
 except Exception as e:
     print(f"❌ خطأ في الاتصال بـ Redis: {e}")
     r = None
@@ -157,7 +156,6 @@ async def johned(client, message):
         return True 
         
     except Exception:
-        # في حالة وجود أي خطأ آخر (مثل البوت ليس مشرفاً)، اسمح بالمرور
         return False
 
 # --- دالة جلب قناة السورس ---
@@ -196,7 +194,6 @@ async def gen_ot(app, bot_username, bot_id):
             
             draw = ImageDraw.Draw(bg)
             
-            # محاولة تحميل الخطوط
             try:
                 font_lg = ImageFont.truetype("font2.ttf", 80)
                 font_sm = ImageFont.truetype("font.ttf", 45)
@@ -204,7 +201,6 @@ async def gen_ot(app, bot_username, bot_id):
                 font_lg = ImageFont.load_default()
                 font_sm = ImageFont.load_default()
 
-            # الكتابة على الصورة
             draw.text((580, 120), f"{suorce}", fill="white", font=font_lg)
             draw.text((580, 230), f"USER: @{bot_username}", fill="white", font=font_sm)
             draw.text((580, 300), f"ID: {bot_id}", fill="white", font=font_sm)
@@ -216,14 +212,42 @@ async def gen_ot(app, bot_username, bot_id):
     except Exception as e:
         print(f"Error Gen Image: {e}")
     
-    # في حالة الفشل، نرجع صورة السورس الافتراضية
     return photosource
 
-# ================= كود Start =================
+# ================= إشعار التشغيل (تم نقله هنا ليعمل بأمان) =================
+startup_sent = False
+async def send_online_signal(client):
+    global startup_sent
+    if startup_sent: return
+    try:
+        me = await client.get_me()
+        TARGET_ID = caserid 
+        msg = f"""
+✅ **تم تشغيل سورس {suorce} بنجاح**
 
-# ✅ تم تغيير رقم المجموعة (Group) من 1267686 إلى 1 لضمان استجابة البوت
-@Client.on_message(filters.command(["/start", "رجوع"], "") & filters.private, group=1)
+🤖 البوت: @{me.username}
+🆔 المطور: `{TARGET_ID}`
+📢 قناة الاشتراك: @{ch}
+
+🚀 السورس يعمل الآن بكفاءة!
+✅ تم الاتصال بقاعدة البيانات Redis
+"""
+        await client.send_message(TARGET_ID, msg)
+        print("✅ Startup Signal Sent.")
+        startup_sent = True
+    except Exception as e:
+        print(f"Startup Signal Note: {e}")
+
+
+# ================= كود Start (تم التصحيح 100%) =================
+
+# ✅ 1. تصحيح الفلتر: إزالة ["/start", ...] واستخدام ["start", ...]
+@Client.on_message(filters.command(["start", "رجوع"]) & filters.private, group=1)
 async def for_us65ers(client, message):
+    
+    # محاولة تشغيل إشعار البدء بأمان مع أول أمر Start
+    asyncio.create_task(send_online_signal(client))
+
     # 1. التحقق من الحظر
     if await johCASER(client, message): return
     
@@ -257,7 +281,7 @@ async def for_us65ers(client, message):
             await client.send_message(OWNER_ID, msg)
         except: pass
 
-    # تجهيز الأزرار
+    # ✅ 2. فصل الكيبوردات (زرار المطور إنلاين + القائمة ريبلاي)
     buttons = InlineKeyboardMarkup([
         [InlineKeyboardButton("عـــربـــي 🇪🇬", callback_data="arbk"), InlineKeyboardButton("English 🏴", callback_data="english")],
         [InlineKeyboardButton(dev_name, url=f"https://t.me/{dev_user_link}")]
@@ -268,39 +292,21 @@ async def for_us65ers(client, message):
     caption = f"╮⦿ اهـلا بڪ عزيـزي {message.from_user.mention}\n│⎋ اليـكـ كيبورد الاعضاء للاستمتاع"
     
     try:
+        # إرسال الصورة مع أزرار الإنلاين (اللغة والمطور)
         await message.reply_photo(
             photo=photo, 
             caption=caption, 
+            reply_markup=buttons
+        )
+        
+        # إرسال رسالة منفصلة لفتح كيبورد القائمة (Reply Keyboard)
+        await message.reply_text(
+            "👇 اختر من القائمة بالأسفل 👇",
             reply_markup=Keyard
         )
+
         if photo != photosource and os.path.exists(photo): 
             os.remove(photo)
     except Exception as e:
         await message.reply_text("مرحباً بك في البوت 🌹", reply_markup=Keyard)
         print(f"Start Error: {e}")
-
-# ================= إشعار التشغيل =================
-async def send_online_signal():
-    await asyncio.sleep(15)
-    try:
-        from bot import bot as main_bot 
-        me = await main_bot.get_me()
-        
-        TARGET_ID = caserid 
-        
-        msg = f"""
-✅ **تم تشغيل سورس {suorce} بنجاح**
-
-🤖 البوت: @{me.username}
-🆔 المطور: `{TARGET_ID}`
-📢 قناة الاشتراك: @{ch}
-
-🚀 السورس يعمل الآن بكفاءة!
-✅ تم الاتصال بقاعدة البيانات Redis
-"""
-        await main_bot.send_message(TARGET_ID, msg)
-        print("✅ Startup Signal Sent.")
-    except Exception as e:
-        print(f"Startup Signal Note: {e}")
-
-asyncio.create_task(send_online_signal())
