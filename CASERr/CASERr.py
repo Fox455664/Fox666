@@ -6,21 +6,52 @@ import os
 import time
 from datetime import datetime
 import redis
-from pyrogram.types import (Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, ChatPrivileges, ReplyKeyboardMarkup)
-from pyrogram import filters, Client
-from pyrogram.enums import ChatMembersFilter, ChatMemberStatus
-from pyrogram.errors import PeerIdInvalid, FloodWait
-from pyrogram import enums
-from config import user, dev, call, logger, logger_mode, botname, appp
-from CASERr.daty import get_call, get_userbot, get_dev, get_logger
-from casery import caes, casery, group, source, photosource, caserid, OWNER, muusiic, suorce
 import aiofiles
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
-# إعدادات الاسم الافتراضية
-name = f"{OWNER}"
+from pyrogram.types import (Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, ChatPrivileges, ReplyKeyboardMarkup)
+from pyrogram import filters, Client
+from pyrogram.enums import ChatMembersFilter, ChatMemberStatus
+from pyrogram.errors import PeerIdInvalid, FloodWait, UserNotParticipant
+from pyrogram import enums
 
-# --- الاتصال بقاعدة البيانات ---
+# استيراد بعض الدوال من ملفات أخرى (مع تجاهل الأخطاء إذا لم توجد)
+try:
+    from config import user, dev, call, logger, logger_mode, botname, appp
+    from CASERr.daty import get_call, get_userbot, get_dev, get_logger
+except ImportError:
+    pass
+
+# =========================================================
+# ⬇️⬇️⬇️ بياناتك وإعدادات السورس (Titanx) ⬇️⬇️⬇️
+# =========================================================
+
+# المطورين الاحتياطيين
+caes = ["f_o_x_351", "zozooryy", "cyv0we"]
+
+# البيانات الأساسية
+casery = "f_o_x_351"
+caserid = 7669264153
+OWNER_NAME = "النسور"
+OWNER = caserid
+muusiic = "SOURCE Titanx"
+suorce = "SOURCE Titanx"
+source = "https://t.me/fox68899"
+ch = "fox68899"  # يوزر القناة بدون @ (مهم للاشتراك الإجباري)
+group = "https://t.me/fox68899"
+photosource = "https://envs.sh/ws4.webp"
+
+# =========================================================
+# ⬆️⬆️⬆️ نهاية بياناتك ⬆️⬆️⬆️
+# =========================================================
+
+# --- حل مشكلة الاستيراد ---
+devchannel = source      # قناة السورس
+devgroup = group         # جروب الدعم
+devuser = casery         # يوزر المطور
+name = f"{OWNER_NAME}"   # الاسم المعروض
+
+# --- الاتصال بقاعدة البيانات (Upstash Redis) ---
 try:
     r = redis.Redis(
         host="ultimate-ferret-48101.upstash.io",
@@ -29,62 +60,129 @@ try:
         ssl=True,
         decode_responses=True
     )
-except:
+    # اختبار الاتصال سريعاً (بدون تعطيل)
+    # r.ping()
+except Exception as e:
+    print(f"❌ خطأ في الاتصال بـ Redis: {e}")
     r = None
 
-# --- الكيبوردات الأساسية ---
-# (تم الإبقاء عليها كما هي لضمان توافق الأوامر)
+# --- الكيبوردات ---
 Keyard = ReplyKeyboardMarkup(
-    [[("• زخرفه •")],[("• صراحه •"),("• تويت •")],[("• انصحني •"),("• لو خيروك •")],[("• حروف •"),("• امثله •")],[("• نكته •"),("• احكام •")],[("• قران •"),("• ازكار •")],[("• صور •")],[("• صور شباب •"),("• صور بنات •")],[("• انمي •"),("• استوري •")],[("• اغاني •")],[("• ممثلين •"),("• مغنين •")],[("• مشاهير •"),("• لاعبين •")],[("• اعلام •"),("• افلام •")],[("• لغز •"),("• مختلف •")],[("مطور البوت"),("مطور السورس")],[("السورس")],[("/start")]],
+    [
+        [("• زخرفه •")],
+        [("• صراحه •"),("• تويت •")],
+        [("• انصحني •"),("• لو خيروك •")],
+        [("• حروف •"),("• امثله •")],
+        [("• نكته •"),("• احكام •")],
+        [("• قران •"),("• ازكار •")],
+        [("• صور •")],
+        [("• صور شباب •"),("• صور بنات •")],
+        [("• انمي •"),("• استوري •")],
+        [("• اغاني •")],
+        [("• ممثلين •"),("• مغنين •")],
+        [("• مشاهير •"),("• لاعبين •")],
+        [("• اعلام •"),("• افلام •")],
+        [("• لغز •"),("• مختلف •")],
+        [("مطور البوت"),("مطور السورس")],
+        [("السورس")],
+        [("/start")]
+    ],
     resize_keyboard=True
 )
 
 Keyboard = ReplyKeyboardMarkup(
-    [[("قسم البوت"), ("قسم المساعد")],[("قسم الاذاعه"), ("قسم الترويج")],[("قسم الاشتراك"), ("قسم الاحتياطي")],[("《الاحصائيات》")],[("قسم التشغيل")],[("قسم الحظر")],[("قسم التفعيل والتعطيل")],[("مطور السورس"), ("مطور البوت")],[("سورس")]],
+    [
+        [("قسم البوت"), ("قسم المساعد")],
+        [("قسم الاذاعه"), ("قسم الترويج")],
+        [("قسم الاشتراك"), ("قسم الاحتياطي")],
+        [("《الاحصائيات》")],
+        [("قسم التشغيل")],
+        [("قسم الحظر")],
+        [("قسم التفعيل والتعطيل")],
+        [("مطور السورس"), ("مطور البوت")],
+        [("سورس")]
+    ],
     resize_keyboard=True
 )
 
-# --- دوال المستخدمين ---
+# --- دوال إدارة المستخدمين ---
 def add_user(user_id, bot_id):
-    if r: r.sadd(f"USERS{bot_id}", user_id)
+    if r: 
+        try: r.sadd(f"USERS{bot_id}", user_id)
+        except: pass
 
 def is_user(user_id, bot_id):
-    if r: return r.sismember(f"USERS{bot_id}", user_id)
+    if r:
+        try: return r.sismember(f"USERS{bot_id}", user_id)
+        except: return False
     return False
 
 def get_user(bot_id):
-    if r: return list(r.smembers(f"USERS{bot_id}"))
+    if r:
+        try: return list(r.smembers(f"USERS{bot_id}"))
+        except: return []
     return []
 
 def get_groups(bot_id):
-    if r: return list(r.smembers(f"GROUPS{bot_id}"))
+    if r:
+        try: return list(r.smembers(f"GROUPS{bot_id}"))
+        except: return []
     return []
 
-# --- دالة الاشتراك الإجباري ---
+# =========================================================
+# ⛔️ دالة الاشتراك الإجباري (تم التفعيل) ⛔️
+# =========================================================
 async def johned(client, message):
     try:
-        # يمكنك تعديل هذا المنطق لجلب قناة الاشتراك من الداتا
-        return False 
-    except:
+        # التحقق من العضوية في القناة
+        # ch هو متغير يحمل يوزر القناة (fox68899) تم تعريفه بالأعلى
+        user_status = await client.get_chat_member(ch, message.from_user.id)
+        if user_status.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.LEFT]:
+            raise UserNotParticipant 
+        return False # المشترك موجود، اسمح له بالمرور
+    
+    except UserNotParticipant:
+        # إذا لم يكن مشتركاً، ارسل رسالة الاشتراك
+        try:
+            bot_username = client.me.username
+            await message.reply(
+                f"🚸 **عذراً عزيزي {message.from_user.mention}**\n\n⚠️ **عليك الاشتراك في قناة السورس أولاً لاستخدام البوت.**",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("اشترك الآن 🔱", url=source)],
+                    [InlineKeyboardButton(f"تحديث 🔄", url=f"https://t.me/{bot_username}?start=start")]
+                ]),
+                disable_web_page_preview=True
+            )
+        except:
+            pass
+        return True # أوقف التنفيذ (Block)
+        
+    except Exception:
+        # في حالة وجود خطأ (مثل أن البوت ليس مشرفاً في القناة)، اسمح للمستخدم بالمرور لتجنب توقف البوت
         return False
 
-# --- دالة جلب قناة السورس (هذه التي كانت تسبب ImportError) ---
+# --- دالة جلب قناة السورس ---
 def get_channel(bot_username):
     return source
 
 # --- دوال الحظر ---
 def add_CASER(bots, bot_username):
-    if r: r.sadd(f"CASER{bot_username}", str(bots))
+    if r: 
+        try: r.sadd(f"CASER{bot_username}", str(bots))
+        except: pass
 
 async def johCASER(client, message):
     if not r: return False
-    bot_username = client.me.username
-    res = r.smembers(f"CASER{bot_username}")
-    for x in res:
-        if str(message.from_user.id) in x: return True
+    try:
+        bot_username = client.me.username
+        res = r.smembers(f"CASER{bot_username}")
+        for x in res:
+            if str(message.from_user.id) in x: return True
+    except:
+        pass
     return False
 
-# --- دالة صنع الصورة (المحسنة) ---
+# --- دالة صناعة صورة البداية ---
 async def gen_ot(app, bot_username, bot_id):
     output_path = f"start_{bot_id}.png"
     try:
@@ -93,18 +191,21 @@ async def gen_ot(app, bot_username, bot_id):
             photo_path = await app.download_media(user_chat.photo.big_file_id)
             img = Image.open(photo_path).resize((1280, 720)).convert("RGBA")
             
-            # فلتر الصورة الخلفية
+            # فلتر وتعتيم الخلفية
             bg = img.filter(ImageFilter.BoxBlur(10))
             bg = ImageEnhance.Brightness(bg).enhance(0.5)
             
             draw = ImageDraw.Draw(bg)
+            
+            # محاولة تحميل الخطوط
             try:
                 font_lg = ImageFont.truetype("font2.ttf", 80)
                 font_sm = ImageFont.truetype("font.ttf", 45)
             except:
-                font_lg = font_sm = ImageFont.load_default()
+                font_lg = ImageFont.load_default()
+                font_sm = ImageFont.load_default()
 
-            # رسم البيانات على الصورة
+            # الكتابة على الصورة
             draw.text((580, 120), f"{suorce}", fill="white", font=font_lg)
             draw.text((580, 230), f"USER: @{bot_username}", fill="white", font=font_sm)
             draw.text((580, 300), f"ID: {bot_id}", fill="white", font=font_sm)
@@ -115,68 +216,91 @@ async def gen_ot(app, bot_username, bot_id):
             return output_path
     except Exception as e:
         print(f"Error Gen Image: {e}")
+    
+    # في حالة الفشل، نرجع صورة السورس الافتراضية
     return photosource
 
-# --- أمر Start ---
+# ================= كود Start =================
+
 @Client.on_message(filters.command(["/start", "رجوع"], "") & filters.private, group=1267686)
 async def for_us65ers(client, message):
+    # 1. التحقق من الحظر
     if await johCASER(client, message): return
     
+    # 2. التحقق من الاشتراك الإجباري
+    if await johned(client, message): return
+
     bot_username = client.me.username
     bot_id = client.me.id
     
-    # جلب معلومات المطور
-    OWNER_ID = await get_dev(bot_username)
+    # تحديد ايدي المطور
+    OWNER_ID = caserid
+    try:
+        dev_chk = await get_dev(bot_username)
+        if dev_chk: OWNER_ID = dev_chk
+    except: pass
+
+    # محاولة جلب معلومات المطور للعرض
     try:
         dev_info = await client.get_chat(OWNER_ID)
         dev_name = dev_info.first_name
-        dev_user = dev_info.username
+        dev_user_link = dev_info.username
     except:
-        dev_name = "المطور"
-        dev_user = casery
+        dev_name = OWNER_NAME
+        dev_user_link = casery
 
-    # تسجيل مستخدم جديد
+    # تسجيل المستخدم
     if not is_user(message.from_user.id, bot_id):
         add_user(message.from_user.id, bot_id)
         try:
-            await client.send_message(OWNER_ID, f"🙍 **مستخدم جديد دخل للبوت:**\n\n🎯 الاسم: {message.from_user.mention}\n🆔 الايدي: `{message.from_user.id}`")
+            msg = f"🙍 **مستخدم جديد دخل للبوت:**\n\n🎯 الاسم: {message.from_user.mention}\n🆔 الايدي: `{message.from_user.id}`"
+            await client.send_message(OWNER_ID, msg)
         except: pass
 
-    # الكيبورد
-    buttons = [
+    # تجهيز الأزرار
+    buttons = InlineKeyboardMarkup([
         [InlineKeyboardButton("عـــربـــي 🇪🇬", callback_data="arbk"), InlineKeyboardButton("English 🏴", callback_data="english")],
-        [InlineKeyboardButton(dev_name, url=f"https://t.me/{dev_user}")]
-    ]
+        [InlineKeyboardButton(dev_name, url=f"https://t.me/{dev_user_link}")]
+    ])
 
+    # تجهيز الصورة
     photo = await gen_ot(client, bot_username, bot_id)
+    caption = f"╮⦿ اهـلا بڪ عزيـزي {message.from_user.mention}\n│⎋ اليـكـ كيبورد الاعضاء للاستمتاع"
+    
     try:
-        await message.reply_photo(photo=photo, caption=f"╮⦿ اهـلا بڪ عزيـزي {message.from_user.mention}\n│⎋ اليـكـ كيبورد الاعضاء للاستمتاع", reply_markup=Keyard)
-        if photo != photosource and os.path.exists(photo): os.remove(photo)
-    except:
+        await message.reply_photo(
+            photo=photo, 
+            caption=caption, 
+            reply_markup=Keyard
+        )
+        if photo != photosource and os.path.exists(photo): 
+            os.remove(photo)
+    except Exception as e:
         await message.reply_text("مرحباً بك في البوت 🌹", reply_markup=Keyard)
+        print(f"Start Error: {e}")
 
-# ================= Startup Log =================
-# الكود المصلح لإرسال إشارة التشغيل للمطور عند فتح السورس
+# ================= إشعار التشغيل =================
 async def send_online_signal():
-    from bot import bot as main_bot # استيراد البوت الأساسي
-    await asyncio.sleep(15) # انتظار استقرار الاتصال
+    await asyncio.sleep(15)
     try:
+        from bot import bot as main_bot 
         me = await main_bot.get_me()
-        OWNER_ID = await get_dev(me.username)
+        
+        TARGET_ID = caserid 
         
         msg = f"""
-✅ **تم تشغيل المصنع بنجاح**
+✅ **تم تشغيل سورس {suorce} بنجاح**
 
 🤖 البوت: @{me.username}
-🆔 المطور: `{OWNER_ID}`
-🕒 الوقت: {datetime.now().strftime('%I:%M %p')}
+🆔 المطور: `{TARGET_ID}`
+📢 قناة الاشتراك: @{ch}
 
 🚀 السورس يعمل الآن بكفاءة!
+✅ تم الاتصال بقاعدة البيانات Redis
 """
-        await main_bot.send_message(OWNER_ID, msg)
+        await main_bot.send_message(TARGET_ID, msg)
         print("✅ Startup Signal Sent.")
     except Exception as e:
-        print(f"❌ Startup Signal Failed: {e}")
+        print(f"Startup Signal Note: {e}")
 
-# تشغيل المهمة في الخلفية
 asyncio.create_task(send_online_signal())
