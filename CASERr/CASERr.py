@@ -37,7 +37,7 @@ OWNER = caserid
 muusiic = "SOURCE Titanx"
 suorce = "SOURCE Titanx"
 source = "https://t.me/fox68899"
-ch = "fox68899"  # يوزر القناة بدون @ (مهم للاشتراك الإجباري)
+ch = "fox68899"  # يوزر القناة بدون @
 group = "https://t.me/fox68899"
 photosource = "https://envs.sh/ws4.webp"
 
@@ -45,11 +45,14 @@ photosource = "https://envs.sh/ws4.webp"
 # ⬆️⬆️⬆️ نهاية بياناتك ⬆️⬆️⬆️
 # =========================================================
 
-# --- حل مشكلة الاستيراد ---
+# --- حل مشكلة الاستيراد (Mapping Variables) ---
 devchannel = source      # قناة السورس
 devgroup = group         # جروب الدعم
 devuser = casery         # يوزر المطور
 name = f"{OWNER_NAME}"   # الاسم المعروض
+
+# ✅✅✅ هنا حل المشكلة (إضافة devphots) ✅✅✅
+devphots = photosource   # تعريف المتغير المفقود
 
 # --- الاتصال بقاعدة البيانات (Upstash Redis) ---
 try:
@@ -60,7 +63,6 @@ try:
         ssl=True,
         decode_responses=True
     )
-    # اختبار الاتصال سريعاً (بدون تعطيل)
     # r.ping()
 except Exception as e:
     print(f"❌ خطأ في الاتصال بـ Redis: {e}")
@@ -129,20 +131,15 @@ def get_groups(bot_id):
         except: return []
     return []
 
-# =========================================================
-# ⛔️ دالة الاشتراك الإجباري (تم التفعيل) ⛔️
-# =========================================================
+# --- دالة الاشتراك الإجباري ---
 async def johned(client, message):
     try:
-        # التحقق من العضوية في القناة
-        # ch هو متغير يحمل يوزر القناة (fox68899) تم تعريفه بالأعلى
         user_status = await client.get_chat_member(ch, message.from_user.id)
         if user_status.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.LEFT]:
             raise UserNotParticipant 
-        return False # المشترك موجود، اسمح له بالمرور
+        return False 
     
     except UserNotParticipant:
-        # إذا لم يكن مشتركاً، ارسل رسالة الاشتراك
         try:
             bot_username = client.me.username
             await message.reply(
@@ -155,10 +152,9 @@ async def johned(client, message):
             )
         except:
             pass
-        return True # أوقف التنفيذ (Block)
+        return True 
         
     except Exception:
-        # في حالة وجود خطأ (مثل أن البوت ليس مشرفاً في القناة)، اسمح للمستخدم بالمرور لتجنب توقف البوت
         return False
 
 # --- دالة جلب قناة السورس ---
@@ -289,18 +285,4 @@ async def send_online_signal():
         TARGET_ID = caserid 
         
         msg = f"""
-✅ **تم تشغيل سورس {suorce} بنجاح**
-
-🤖 البوت: @{me.username}
-🆔 المطور: `{TARGET_ID}`
-📢 قناة الاشتراك: @{ch}
-
-🚀 السورس يعمل الآن بكفاءة!
-✅ تم الاتصال بقاعدة البيانات Redis
-"""
-        await main_bot.send_message(TARGET_ID, msg)
-        print("✅ Startup Signal Sent.")
-    except Exception as e:
-        print(f"Startup Signal Note: {e}")
-
-asyncio.create_task(send_online_signal())
+✅ **تم تشغيل سورس {suorce} بنج
