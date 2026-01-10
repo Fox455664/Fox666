@@ -1,47 +1,20 @@
-import os
-import logging
-from pyrogram import Client, idle, filters
+from pyrogram import Client, idle
 from pyromod import listen
-from casery import bot_token, bot_token2
+from casery import caes, casery, group, source, photosource, caserid, ch, bot_token, bot_token2
 
-# إعدادات السجلات
-logging.basicConfig(level=logging.INFO, format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s")
-logger = logging.getLogger(__name__)
+bot = Client("CAR", api_id=24722068, api_hash="72feca3ed88891eeff3852e20817cdca", bot_token=bot_token, plugins=dict(root="CASER"))
+lolo = Client("hossam", api_id=24722068, api_hash="72feca3ed88891eeff3852e20817cdca", session_string=bot_token2)    
 
-API_ID = int(os.getenv("API_ID", "24722068"))
-API_HASH = os.getenv("API_HASH", "72feca3ed88891eeff3852e20817cdca")
-
-# البوت الأساسي - قمنا بإضافة المجلدين في الـ plugins
-bot = Client(
-    "CAR",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=bot_token,
-    plugins=dict(root="CASERr"), # هنا مجلد الميوزك والأوامر
-    in_memory=True
-)
-
-# الحساب المساعد
-lolo = Client(
-    "hossam",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    session_string=bot_token2,
-    in_memory=True
-)
+DEVS = caes
+DEVSs = []
+bot_id = bot.bot_token.split(":")[0]
 
 async def start_zombiebot():
-    print("🚀 جاري تشغيل المصنع والبوت...")
+    print("تم تشغيل الصانع بنجاح..💗")
     await bot.start()
-    if bot_token2:
-        try:
-            await lolo.start()
-            print("✅ المساعد يعمل!")
-        except:
-            print("⚠️ فشل تشغيل المساعد")
-    
-    # تحميل أوامر المصنع يدوياً لو كانت في مجلد مختلف
-    # @bot.on_message... (الخ)
-    
-    print("🚀 النظام يعمل الآن! اذهب للبوت وجرب.")
+    await lolo.start()
+    try:
+      await bot.send_message(casery, "**تم تشغيل الصانع بنجاح..💗**")
+    except:
+      pass
     await idle()
