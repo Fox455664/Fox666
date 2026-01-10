@@ -554,3 +554,7 @@ async def start_all_systems(client, message):
     asyncio.create_task(nday_loop(bot_username))
     
     await message.reply_text("✅ تم تشغيل جميع الأنظمة بنجاح.")
+    # إضافات لإصلاح خطأ الاستيراد (ImportError)
+azan = azan_loop
+azkar_chatt = azkar_text_loop
+nday_catt = nday_loop
