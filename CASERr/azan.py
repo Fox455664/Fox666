@@ -555,6 +555,25 @@ async def start_all_systems(client, message):
     
     await message.reply_text("✅ تم تشغيل جميع الأنظمة بنجاح.")
     # إضافات لإصلاح خطأ الاستيراد (ImportError)
-    azan = azan_loop
-    azkar_chatt = azkar_text_loop
-    nday_catt = nday_loop
+    # ... (باقي الكود العلوي كما هو)
+
+# ================= تشغيل المهام =================
+
+# تعريف المتغيرات في النطاق العام ليتمكن ملف CASER.py من استيرادها
+azan = azan_loop
+azkar_chatt = azkar_text_loop
+nday_catt = nday_loop
+
+@Client.on_message(filters.command(["تشغيل_النظام", "start_tasks"]), group=999)
+async def start_all_systems(client, message):
+    # التأكد من أن الشخص هو المطور
+    bot_username = client.me.username
+    await message.reply_text("جاري تشغيل مهام الخلفية (الأذان، الأذكار، النداء)...")
+    
+    # تشغيل الحلقات
+    asyncio.create_task(azan_loop(bot_username))
+    asyncio.create_task(azkar_sound_loop(bot_username))
+    asyncio.create_task(azkar_text_loop(bot_username))
+    asyncio.create_task(nday_loop(bot_username))
+    
+    await message.reply_text("✅ تم تشغيل جميع الأنظمة بنجاح.")
